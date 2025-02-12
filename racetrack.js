@@ -1,1 +1,1 @@
-function track () {}
+function track() {}
