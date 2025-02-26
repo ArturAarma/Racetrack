@@ -1,0 +1,26 @@
+.race-flags-container .flag {
+  width: 100vw;
+  height: 100vh;
+}
+
+.race-flags-container #safe {
+  background-color: #04aa6d;
+}
+
+.race-flags-container #hazard {
+  background-color: rgb(255, 255, 66);
+}
+
+.race-flags-container #danger {
+  background-color: #f44336;
+}
+
+.race-flags-container #finish {
+  background: linear-gradient(
+    to right,
+    white,
+    white 50px,
+    black 50px,
+    black 100px
+  );
+}
