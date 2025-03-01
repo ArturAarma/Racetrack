@@ -1,14 +1,14 @@
-import "./RacerLogin.css";
+import "./Racer.css";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
 
 
-const RacerLogin = () => {
+const Racer = () => {
     return (
         <div>
-            <div>You are on the racer homepage</div>
+            <div>You are on the Racer homepage</div>
             <Link to="/" className="bbutton">Back to the main page</Link>
         
         </div>
@@ -16,4 +16,4 @@ const RacerLogin = () => {
     
 };
 
-export default RacerLogin;
+export default Racer;
