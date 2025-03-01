@@ -18,6 +18,9 @@ const Mainpage = () => {
       <Link to="/frontdesk" className="button">
         Frontdesk
       </Link>
+      <Link to="/lap-line-tracker" className="button">
+        Lap-line tracker
+      </Link>
       <Link to="/flagbearer" className="button">
         Flagbearer
       </Link>
