@@ -1,14 +1,12 @@
-import "./FrontdeskLogin.css";
+import "./RaceControlLogin.css";
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-import Frontdesk from "./Frontdesk";
+import RaceControl from "./RaceControl";
 
 import checkPw from '../components/CheckPw';
 
-
-
-function FrontdeskLogin() {
+function RaceControlLogin() {
    
    
     const [password, setPassword] = useState("");
@@ -41,9 +39,9 @@ function FrontdeskLogin() {
                     <Link to="/" className="bbutton">Back to the main page</Link>
                 </div>
                 </div>
-            ) : loginStatus === "frontdesk" ? (
-                <div className='front desk'>
-                   <Frontdesk/>
+            ) : loginStatus === "racecontrol" ? (
+                <div className='racecontrol'>
+                   <RaceControl/>
                 </div>
             ) : loginStatus === "invalid" ? (
                 <div className='invalid'>
@@ -63,5 +61,5 @@ function FrontdeskLogin() {
     
 }
 
-export default FrontdeskLogin;
+export default RaceControlLogin;
 
