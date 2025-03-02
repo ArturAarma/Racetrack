@@ -13,7 +13,7 @@ function AddRacer() {
     }
     return (
     <div>
-        <button onClick={handleClick}>
+        <button className='bbutton' onClick={handleClick}>
             Add a racer
         </button>
 
