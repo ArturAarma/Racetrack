@@ -20,7 +20,7 @@ function Frontdesk() {
             <div className="frontdeskHeader">Front desk</div>
             <div className="racerpanel">
                 <AddRacer />
-                
+                //
             </div>
             <div>
             <Link to="/" className="bbutton" id="linkback">Back to the main page</Link>
