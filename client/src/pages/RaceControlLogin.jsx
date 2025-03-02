@@ -39,7 +39,7 @@ function RaceControlLogin() {
                     <Link to="/" className="bbutton">Back to the main page</Link>
                 </div>
                 </div>
-            ) : loginStatus === "racecontrol" ? (
+            ) : loginStatus === "security" ? (
                 <div className='racecontrol'>
                    <RaceControl/>
                 </div>

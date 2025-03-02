@@ -10,6 +10,7 @@ import { SocketProvider } from "./context/SocketContext";
 import Racer from "./pages/Racer";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Frontdesk from "./pages/Frontdesk";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/frontdesk",
-    element: <FrontdeskLogin />,
+    element: <Frontdesk />,
   },
   {
     path: "/flagbearer",
