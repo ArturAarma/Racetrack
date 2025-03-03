@@ -23,8 +23,8 @@
 }
 
 .racerpanel {
-    width: 490px; 
-    height: 400px; 
+    width: 1000px; 
+    height: 800px; 
     background-color: rgba(168, 59, 141, 0.5); 
     box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); 
     border: solid 2px rgb(255, 158, 255, 0.5);
@@ -41,6 +41,45 @@
 
 }
 
+.PanelButtons {
+    width: 220px; 
+    height: 100px; 
+    background-color: rgba(168, 59, 141, 0.5); 
+    box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); 
+    border: solid 2px rgb(255, 158, 255, 0.5);
+    border-radius: 10px; 
+    padding: 10px; 
+    margin: 20px; 
+    color: white; 
+    font-size: 20px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
+}
+
+.Racers {
+    min-width: 220px;
+    min-height: 100px;
+    width: fit-content; 
+    height: fit-content; 
+    background-color: rgba(168, 59, 141, 0.5); 
+    box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); 
+    border: solid 2px rgb(255, 158, 255, 0.5);
+    border-radius: 10px; 
+    padding: 10px; 
+    margin: 20px; 
+    color: white; 
+    font-size: 20px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
+    
+}
+
 .active {
     text-align: center;
     border: solid 3px rgb(255, 229, 229);
@@ -50,4 +89,22 @@
     padding: 1px 10px;
     
     
+}
+
+.drivers {
+    width: 70px; 
+    height: 50px; 
+    background-color: rgba(168, 59, 141, 0.5); 
+    box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); 
+    border: solid 2px rgb(255, 158, 255, 0.5);
+    border-radius: 10px; 
+    padding: 10px; 
+    margin: 20px; 
+    color: white; 
+    font-size: 20px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
 }
