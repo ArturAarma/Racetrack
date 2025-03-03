@@ -6,10 +6,6 @@ function AddRacer({ addDriver, removeDriver }) {
             <button className='bbutton' onClick={addDriver}>
                 Add a racer
             </button>
-
-            <button className='bbutton' onClick={removeDriver}>
-                Remove a racer
-            </button>
         </div>
     );
 }

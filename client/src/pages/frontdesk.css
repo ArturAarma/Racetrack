@@ -92,8 +92,8 @@
 }
 
 .drivers {
-    width: 70px; 
-    height: 50px; 
+    min-width: 70px;
+    min-height: 100px; 
     background-color: rgba(168, 59, 141, 0.5); 
     box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); 
     border: solid 2px rgb(255, 158, 255, 0.5);
@@ -106,5 +106,25 @@
     display: flex;
     justify-content: center;
     text-decoration: none;
+    text-align: center;
+    
+}
+
+.removebutton {
+    width: 20px; 
+    height: 20px; 
+    background-color: rgba(168, 59, 141, 0.5); 
+    box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); 
+    border: solid 2px rgb(255, 158, 255, 0.5);
+    border-radius: 10px; 
+    padding: 10px; 
+    margin: 20px; 
+    color: white; 
+    font-size: 20px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    margin: auto;
     text-align: center;
 }
