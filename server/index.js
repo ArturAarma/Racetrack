@@ -11,6 +11,13 @@ io.on("connection", (socket) => {
     io.emit("getFlag", flagType);
   });
 
+  socket.on("makeDriverActive", (selectedDriver) => {
+    io.emit("getDriver", selectedDriver);
+    console.log(selectedDriver)
+  });
+
+
+
   socket.on("disconnect", () => {
     console.log("someone has left");
   });
