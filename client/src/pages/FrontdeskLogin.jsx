@@ -6,6 +6,8 @@ import Frontdesk from "./Frontdesk";
 
 import checkPw from '../components/CheckPw';
 
+
+
 function FrontdeskLogin() {
    
    
@@ -24,6 +26,7 @@ function FrontdeskLogin() {
         <div className="container">
             <form onSubmit={loginClick}>
             {loginStatus === null ? (
+                <div>
                 <div className="login">
                     <input 
                     type="text" 
@@ -34,14 +37,25 @@ function FrontdeskLogin() {
                     />
                     <button type="submit">Login</button>
                 </div>
+                <div>
+                    <Link to="/" className="bbutton">Back to the main page</Link>
+                </div>
+                </div>
             ) : loginStatus === "frontdesk" ? (
                 <div className='front desk'>
                    <Frontdesk/>
                 </div>
-            ) : (
+            ) : loginStatus === "invalid" ? (
                 <div className='invalid'>
                     <div>Enter valid password</div>
+                    <Link to="/" className="bbutton">Back to the main page</Link>
                 </div>
+            ) : (
+                <div className='invalid'>
+                    <div>Unexpected error. Please try again.</div>
+                    <Link to="/" className="bbutton">Back to the main page</Link>
+                </div>
+
             )}
             </form>
         </div>

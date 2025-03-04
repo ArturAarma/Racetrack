@@ -12,11 +12,14 @@ const Mainpage = () => {
       <Link to="/racer" className="button">
         Racer
       </Link>
-      <Link to="/security" className="button">
-        Security
+      <Link to="/race-control" className="button">
+        Race control
       </Link>
       <Link to="/frontdesk" className="button">
         Frontdesk
+      </Link>
+      <Link to="/lap-line-tracker" className="button">
+        Lap-line tracker
       </Link>
       <Link to="/flagbearer" className="button">
         Flagbearer
