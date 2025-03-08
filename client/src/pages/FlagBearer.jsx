@@ -6,23 +6,18 @@ import { SocketContext } from "../context/SocketContext";
 
 function FlagBearer() {
   const socket = useContext(SocketContext);
-  const [flagType, setFlagType] = useState("safe");
 
-  useEffect(() => {
-    if (socket) {
-      socket.emit("changeFlag", flagType);
-    }
-  }, [socket, flagType]);
-
-  console.log(flagType);
+  const handleFlagChange = (newFlag) => {
+    socket.emit("changeFlag", newFlag);
+  };
 
   return (
     <div className="container">
       <div className="flagheader">Here you can change flags!</div>
       <div id="flagdiv">
-        <button id="green" onClick={() => setFlagType("safe")}></button>
-        <button id="yellow" onClick={() => setFlagType("hazard")}></button>
-        <button id="red" onClick={() => setFlagType("danger")}></button>
+        <button id="green" onClick={() => handleFlagChange("safe")}></button>
+        <button id="yellow" onClick={() => handleFlagChange("hazard")}></button>
+        <button id="red" onClick={() => handleFlagChange("danger")}></button>
       </div>
       <div>
         <Link to="/" className="bbutton" id="linkback">
