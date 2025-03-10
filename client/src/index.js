@@ -10,7 +10,7 @@ import { SocketProvider } from "./context/SocketContext";
 import Racer from "./pages/Racer";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Frontdesk from "./pages/Frontdesk";
+import Frontdesk from "./pages/FrontDesk2";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -38,7 +38,8 @@ const router = createBrowserRouter([
   {
     path: "/lap-line-tracker",
     element: <LapLineTracker />,
-  }, {
+  },
+  {
     path: "/racer",
     element: <Racer />,
   },
