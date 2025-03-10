@@ -5,8 +5,8 @@
 }
 
 .frontdeskHeader {
-  width: 490px;
-  height: 20px;
+  /* width: 490px;
+  height: 20px; */
   background-color: rgba(168, 59, 141, 0.5);
   box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
   border: solid 2px rgb(255, 158, 255, 0.5);
@@ -23,8 +23,8 @@
 }
 
 .racerpanel {
-  width: 75vw;
-  height: 800px;
+  /* width: 95vw;
+  height: 50vh; */
   background-color: rgba(168, 59, 141, 0.5);
   box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
   border: solid 2px rgb(255, 158, 255, 0.5);
@@ -33,9 +33,9 @@
   margin: 20px;
   color: white;
   font-size: 20px;
-  flex-direction: column;
+  flex-direction: row;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   text-decoration: none;
   text-align: center;
 }
@@ -120,4 +120,72 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   text-decoration: none;
+}
+
+.session-container {
+  width: 200px;
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+  color: white;
+  font-size: 20px;
+}
+
+.session-inactive {
+  font-size: 14px;
+  background-color: rgb(29, 152, 89);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+}
+
+.session-active {
+  font-size: 14px;
+  background-color: rgb(214, 45, 45);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+}
+
+.session-drivers label {
+  font-size: 14px;
+}
+
+.edit-button {
+  width: 130px;
+  height: 6px;
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.add-session-container {
+  /* width: 490px;
+  height: 20px; */
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+  color: white;
+  font-size: 20px;
+  flex-direction: row;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-align: center;
 }
