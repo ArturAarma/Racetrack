@@ -1,14 +1,32 @@
-const sessions = [
+const testSessions = [
   {
-    id: 1,
-    sessionName: "Session 1",
-    drivers: ["John", "Jack", "Jane", "Joe"],
+    name: "Session 1",
+    drivers: [
+      "John",
+      "Jack",
+      "Mike",
+      "Nick",
+      "Karl",
+      "Preston",
+      "Penny",
+      "Liana",
+    ],
     isActive: false,
+    isFinished: false,
   },
   {
-    id: 2,
-    sessionName: "Session 2",
-    drivers: ["Mike", "Mack", "Martin", "Michael"],
+    name: "Session 2",
+    drivers: [
+      "Driver 1",
+      "Driver 2",
+      "Driver 3",
+      "Driver 4",
+      "Driver 5",
+      "Driver 6",
+      "Driver 7",
+      "Driver 8",
+    ],
     isActive: false,
+    isFinished: false,
   },
 ];
