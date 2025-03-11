@@ -7,23 +7,27 @@ function Frontdesk() {
   //   const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
 
-  // needs a check to not allow adding a name that's already added
   const addNewSession = (sessionName) => {
-    if (sessionName.trim() !== "") {
-      setSessions([
-        ...sessions,
-        {
-          //   id: sessions.length,
-          name: sessionName,
-          drivers: ["", "", "", "", "", "", "", ""],
-          isActive: false,
-          isFinished: false,
-        },
-      ]);
+    if (sessions.find((session) => session.name === sessionName)) {
+      alert(
+        "Session with that name already exists. Please choose an unique name."
+      );
+    } else {
+      if (sessionName.trim() !== "") {
+        setSessions([
+          ...sessions,
+          {
+            //   id: sessions.length,
+            name: sessionName,
+            drivers: ["", "", "", "", "", "", "", ""],
+            isActive: false,
+            isFinished: false,
+          },
+        ]);
+      }
     }
   };
 
-  // atm if multiple sessions have the same name, clicking "remove" deletes all of them
   const removeSession = (sessionName) => {
     setSessions(sessions.filter((session) => session.name !== sessionName));
   };
