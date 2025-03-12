@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import RaceControlLogin from "./pages/RaceControlLogin"; // Make sure 'SecurityLogin' is the correct file name
+// import RaceControlLogin from "./pages/RaceControlLogin"; // Make sure 'SecurityLogin' is the correct file name
 import FrontdeskLogin from "./pages/FrontdeskLogin"; // Make sure 'frontdesklogin' is the correct file name
 import FlagBearer from "./pages/FlagBearer";
 import RaceFlags from "./pages/race-flags";
@@ -11,6 +11,7 @@ import Racer from "./pages/Racer";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Frontdesk from "./pages/FrontDesk2";
+import RaceControl from "./pages/RaceControl";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/race-control",
-    element: <RaceControlLogin />,
+    element: <RaceControl />,
   },
   {
     path: "/frontdesk",
