@@ -47,7 +47,7 @@ function SessionInfo() {
       </div>
       <div className="sessions-box">
         <div className="info-box">Current session:</div>
-        <div className="info-box">Race Session 1</div>
+        <div className="info-box">{testSessions[0].name}</div>
       </div>
       <button className="bbutton">Start Race / End Session</button>
     </div>
