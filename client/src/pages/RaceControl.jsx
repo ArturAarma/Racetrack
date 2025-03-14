@@ -1,10 +1,13 @@
 import "./RaceControl.css";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import testSessions from "../components/front-desk/SessionObj";
+import { SocketContext } from "../context/SocketContext";
 
 function RaceControl() {
+  const socket = useContext(SocketContext);
+
   return (
     <div className="session-container">
       Race Control

@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import "./FrontDesk2.css";
 import { Link } from "react-router-dom";
-// import { SocketContext } from "../context/SocketContext";
+import { SocketContext } from "../context/SocketContext";
 
 function Frontdesk() {
-  //   const socket = useContext(SocketContext);
+  const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
 
   const addNewSession = (sessionName) => {
@@ -19,6 +19,7 @@ function Frontdesk() {
           {
             name: sessionName,
             drivers: [],
+            isConfirmed: false,
             isActive: false,
             isFinished: false,
             raceMode: "",
@@ -37,15 +38,18 @@ function Frontdesk() {
   const handleUpdateSession = (sessionName, updatedDrivers) => {
     setSessions((prevSessions) =>
       prevSessions.map((s) =>
-        s.name === sessionName ? { ...s, drivers: updatedDrivers } : s
+        s.name === sessionName
+          ? { ...s, drivers: updatedDrivers, isConfirmed: true }
+          : s
       )
     );
   };
 
-  //   useEffect(() => {
-  //     if (!socket) return;
-  //     socket.emit("sendSessionData", sessions);
-  //   }, [socket, sessions]);
+  // emit session data whenever sessions get updated
+  useEffect(() => {
+    if (!socket) return;
+    socket.emit("updateSessions", sessions);
+  }, [socket, sessions]);
 
   console.log(sessions);
 
@@ -105,7 +109,7 @@ function AddSession({ onAddSession }) {
 
 // Edit session component
 function EditSession({ session, onRemove, onUpdate, queue }) {
-  const [editEnabled, setEditEnabled] = useState(false);
+  const [editEnabled, setEditEnabled] = useState(true);
   const [drivers, setDrivers] = useState([...session.drivers]);
 
   // Makes sure that drivers state updates when session.drivers changes
@@ -159,6 +163,22 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
     const filteredDrivers = drivers.filter(
       (driver) => driver.name.trim() !== ""
     );
+
+    // check that driver fields are not empty
+    if (filteredDrivers.length === 0) {
+      alert("Set name for at least 1 driver.");
+      return;
+    }
+
+    // check that drivers names are unique
+    const driverNames = filteredDrivers.map((driver) => driver.name.trim());
+    // Set removes duplicates so size will be different than length if duplicates are found
+    const hasDuplicates = new Set(driverNames).size !== driverNames.length;
+    if (hasDuplicates) {
+      alert("Please choose unique driver names.");
+      return;
+    }
+
     onUpdate(session.name, filteredDrivers);
     setEditEnabled(false);
   };
