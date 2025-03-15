@@ -21,6 +21,10 @@ io.on("connection", (socket) => {
     io.emit("sessionsUpdated", sessions);
   });
 
+  socket.on("raceStarted", (updatedSessions) => {
+    io.emit("removedSession", updatedSessions);
+  });
+
   socket.on("disconnect", () => {
     console.log("User disconnected: " + socket.id);
   });
