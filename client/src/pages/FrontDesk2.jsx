@@ -51,6 +51,18 @@ function Frontdesk() {
     socket.emit("updateSessions", sessions);
   }, [socket, sessions]);
 
+  // get session update when race has started (active session is removed from front-desk)
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("removedSession", (updatedSessions) => {
+      setSessions(updatedSessions);
+    });
+
+    return () => {
+      socket.off("removedSession");
+    };
+  }, [socket]);
+
   console.log(sessions);
 
   return (

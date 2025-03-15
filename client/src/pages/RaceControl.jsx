@@ -7,7 +7,7 @@ import { SocketContext } from "../context/SocketContext";
 function RaceControl() {
   const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
-  const [currentSession, setCurrentSession] = useState({});
+  const [currentSession, setCurrentSession] = useState(null);
 
   // get updated sessions when front-desk updates sessions
   useEffect(() => {
@@ -46,6 +46,9 @@ function RaceControl() {
       <SessionInfo
         currentSession={currentSession}
         setCurrentSession={setCurrentSession}
+        sessions={sessions}
+        setSessions={setSessions}
+        socket={socket}
       />
       <Link to="/" className="bbutton">
         Back to the main page
@@ -98,12 +101,38 @@ function FlagControls({ currentSession, setCurrentSession }) {
 }
 
 // SessionInfo
-function SessionInfo({ currentSession, setCurrentSession }) {
+function SessionInfo({
+  sessions,
+  setSessions,
+  currentSession,
+  setCurrentSession,
+  socket,
+}) {
   const handleStartRace = () => {
-    setCurrentSession((prevSession) => ({
-      ...prevSession,
+    //change the current session flag to "safe" and isActive=true
+    setCurrentSession((prevCurrentSession) => ({
+      ...prevCurrentSession,
       isActive: true,
       raceMode: "safe",
+    }));
+
+    // remove the current session from general sessions array when race is started
+    const currentSessionRemoved = sessions.filter(
+      (session) => session.name !== currentSession.name
+    );
+    setSessions(currentSessionRemoved);
+
+    // update new sessions data through socket
+    socket.emit("raceStarted", currentSessionRemoved);
+  };
+
+  // Handle End Session
+  const handleEndSession = () => {
+    // when both isFinished and isActive are set to false, then useEffect sets
+    // the next session from sessions array as currentSession
+    setCurrentSession((prevCurrentSession) => ({
+      ...prevCurrentSession,
+      isFinished: false,
     }));
   };
 
@@ -142,15 +171,24 @@ function SessionInfo({ currentSession, setCurrentSession }) {
       </div>
       <div className="sessions-box">
         <div className="info-box">
-          {currentSession?.isActive ? "Current Session:" : "Next Session:"}
+          {currentSession?.isActive || currentSession?.isFinished
+            ? "Current Session:"
+            : "Next Session:"}
         </div>
         <div className="info-box">
           {currentSession ? currentSession.name : "No upcoming sessions."}
         </div>
       </div>
-      {currentSession && !currentSession?.isActive && (
-        <button className="bbutton" onClick={handleStartRace}>
-          Start Race
+      {currentSession &&
+        !currentSession?.isActive &&
+        !currentSession?.isFinished && (
+          <button className="bbutton" onClick={handleStartRace}>
+            Start Race
+          </button>
+        )}
+      {currentSession && currentSession?.isFinished && (
+        <button className="bbutton" onClick={() => handleEndSession()}>
+          End Session
         </button>
       )}
     </div>
