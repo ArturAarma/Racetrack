@@ -22,7 +22,7 @@ function Frontdesk() {
             isConfirmed: false,
             isActive: false,
             isFinished: false,
-            raceMode: "",
+            raceMode: "danger",
             startTime: null,
             leaderboard: [],
           },
