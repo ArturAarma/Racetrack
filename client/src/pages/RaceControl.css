@@ -78,7 +78,6 @@
 .flags-box #danger,
 .flags-box #finish {
   display: flex;
-  opacity: 0.6;
   align-items: center;
   justify-content: center;
   width: 100px;
@@ -117,7 +116,7 @@
 .flags-box #hazard:hover,
 .flags-box #danger:hover,
 .flags-box #finish:hover {
-  opacity: 1;
+  border: solid 3px;
 }
 
 .sessions-box {
