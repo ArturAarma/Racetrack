@@ -172,3 +172,35 @@
   padding-right: 75px;
   padding-left: 75px;
 }
+
+.drivers-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* justify-content: space-between; Adjust spacing */
+  /* align-items: center; Aligns vertically */
+  background-color: rgba(168, 59, 141, 0.5);
+  font-size: 14px;
+  border-radius: 10px;
+  /* padding: 10px; */
+  color: white;
+  border: 1px solid black;
+}
+
+.drivers-box ul {
+  margin: 5px;
+  padding-left: 15px;
+}
+
+.drivers-box li {
+  list-style: none;
+  text-align: center;
+}
+
+.drivers-box .car-nr {
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  text-decoration: underline;
+}

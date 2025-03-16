@@ -179,6 +179,15 @@ function SessionInfo({
           {currentSession ? currentSession.name : "No upcoming sessions."}
         </div>
       </div>
+      {currentSession && (
+        <div className="drivers-box">
+          {currentSession?.drivers.map((driver, index) => (
+            <li>
+              <div className="car-nr">Car #{driver.car}:</div> {driver.name}
+            </li>
+          ))}
+        </div>
+      )}
       {currentSession &&
         !currentSession?.isActive &&
         !currentSession?.isFinished && (
