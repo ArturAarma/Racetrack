@@ -23,4 +23,4 @@ function RaceFlags() {
   return <div id={flag}></div>;
 }
 
-export default RaceFlags;
+export default RaceFlags;  
