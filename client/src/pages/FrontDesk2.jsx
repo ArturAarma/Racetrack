@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import "./FrontDesk2.css";
 import { Link } from "react-router-dom";
-// import { SocketContext } from "../context/SocketContext";
+import { SocketContext } from "../context/SocketContext";
 
 function Frontdesk() {
-  //   const socket = useContext(SocketContext);
+  const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
 
   const addNewSession = (sessionName) => {
@@ -17,11 +17,14 @@ function Frontdesk() {
         setSessions([
           ...sessions,
           {
-            //   id: sessions.length,
             name: sessionName,
-            drivers: ["", "", "", "", "", "", "", ""],
+            drivers: [],
+            isConfirmed: false,
             isActive: false,
             isFinished: false,
+            raceMode: "danger",
+            startTime: null,
+            leaderboard: [],
           },
         ]);
       }
@@ -35,15 +38,30 @@ function Frontdesk() {
   const handleUpdateSession = (sessionName, updatedDrivers) => {
     setSessions((prevSessions) =>
       prevSessions.map((s) =>
-        s.name === sessionName ? { ...s, drivers: updatedDrivers } : s
+        s.name === sessionName
+          ? { ...s, drivers: updatedDrivers, isConfirmed: true }
+          : s
       )
     );
   };
 
-  //   useEffect(() => {
-  //     if (!socket) return;
-  //     socket.emit("sendSessionData", sessions);
-  //   }, [socket, sessions]);
+  // emit session data whenever sessions get updated
+  useEffect(() => {
+    if (!socket) return;
+    socket.emit("updateSessions", sessions);
+  }, [socket, sessions]);
+
+  // get session update when race has started (active session is removed from front-desk)
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("removedSession", (updatedSessions) => {
+      setSessions(updatedSessions);
+    });
+
+    return () => {
+      socket.off("removedSession");
+    };
+  }, [socket]);
 
   console.log(sessions);
 
@@ -103,7 +121,7 @@ function AddSession({ onAddSession }) {
 
 // Edit session component
 function EditSession({ session, onRemove, onUpdate, queue }) {
-  const [editEnabled, setEditEnabled] = useState(false);
+  const [editEnabled, setEditEnabled] = useState(true);
   const [drivers, setDrivers] = useState([...session.drivers]);
 
   // Makes sure that drivers state updates when session.drivers changes
@@ -115,15 +133,65 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
     setEditEnabled(!editEnabled);
   };
 
-  const handleChange = (index, driverName) => {
-    const updatedDrivers = [...drivers];
-    updatedDrivers[index] = driverName;
-    setDrivers(updatedDrivers);
+  const handleChange = (carNr, driverName) => {
+    setDrivers((prevDrivers) => {
+      // Create a new array from existing drivers
+      const updatedDrivers = [...prevDrivers];
+
+      // Find the driver object for this carNr (returns -1 if not found)
+      const driverIndex = updatedDrivers.findIndex(
+        (driver) => driver.car === carNr
+      );
+
+      if (driverName.trim() !== "") {
+        // Update driver name when driver with this carNr is found in the array
+        if (driverIndex !== -1) {
+          updatedDrivers[driverIndex] = {
+            ...updatedDrivers[driverIndex],
+            name: driverName,
+          };
+
+          // If driver with this carNr is not found in the array, add it
+        } else {
+          updatedDrivers.push({
+            car: carNr,
+            name: driverName,
+            laps: [],
+            bestLap: null,
+          });
+        }
+      } else {
+        // If driver name is cleared, remove that car entry
+        return updatedDrivers.filter((driver) => driver.car !== carNr);
+      }
+
+      return updatedDrivers;
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate(session.name, drivers);
+    // Filter out cars if no driver name is submitted
+    const filteredDrivers = drivers.filter(
+      (driver) => driver.name.trim() !== ""
+    );
+
+    // check that driver fields are not empty
+    if (filteredDrivers.length === 0) {
+      alert("Set name for at least 1 driver.");
+      return;
+    }
+
+    // check that drivers names are unique
+    const driverNames = filteredDrivers.map((driver) => driver.name.trim());
+    // Set removes duplicates so size will be different than length if duplicates are found
+    const hasDuplicates = new Set(driverNames).size !== driverNames.length;
+    if (hasDuplicates) {
+      alert("Please choose unique driver names.");
+      return;
+    }
+
+    onUpdate(session.name, filteredDrivers);
     setEditEnabled(false);
   };
 
@@ -133,87 +201,112 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
     setEditEnabled(false);
   };
 
+  const findDriver = (array, key, carNr, returnKey) => {
+    const foundObject = array.find((driverObj) => driverObj[key] === carNr);
+    return foundObject ? foundObject[returnKey] : "";
+  };
+
   return (
     <div className="session-container">
-      <div className="session-header">Session name: {session.name}</div>
-      <div className="session-header">Place in line: {queue}</div>
+      <div className="session-header">
+        Session #{queue}: <br></br>
+        {session.name}
+      </div>
       <div className={session.isActive ? "session-active" : "session-inactive"}>
         {session.isActive
           ? "Session active, unable to edit"
           : "Session inactive"}
       </div>
+
       <div className="session-drivers">
         <form onSubmit={handleSubmit}>
-          <label>Car #1 </label>
-          <input
-            type="text"
-            placeholder="Driver 1"
-            value={drivers[0] || ""}
-            onChange={(e) => handleChange(0, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #2 </label>
-          <input
-            type="text"
-            placeholder="Driver 2"
-            value={drivers[1] || ""}
-            onChange={(e) => handleChange(1, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #3 </label>
-          <input
-            type="text"
-            placeholder="Driver 3"
-            value={drivers[2] || ""}
-            onChange={(e) => handleChange(2, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #4 </label>
-          <input
-            type="text"
-            placeholder="Driver 4"
-            value={drivers[3] || ""}
-            onChange={(e) => handleChange(3, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #5 </label>
-          <input
-            type="text"
-            placeholder="Driver 5"
-            value={drivers[4] || ""}
-            onChange={(e) => handleChange(4, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #6 </label>
-          <input
-            type="text"
-            placeholder="Driver 6"
-            value={drivers[5] || ""}
-            onChange={(e) => handleChange(5, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #7 </label>
-          <input
-            type="text"
-            placeholder="Driver 7"
-            value={drivers[6] || ""}
-            onChange={(e) => handleChange(6, e.target.value)}
-            disabled={!editEnabled}
-          />
-          <label>Car #8 </label>
-          <input
-            type="text"
-            placeholder="Driver 8"
-            value={drivers[7] || ""}
-            onChange={(e) => handleChange(7, e.target.value)}
-            disabled={!editEnabled}
-          />
+          <div className="drivers-row">
+            <label>Car #1 </label>
+            <input
+              type="text"
+              placeholder="Driver 1"
+              value={findDriver(drivers, "car", 1, "name")}
+              onChange={(e) => handleChange(1, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #2 </label>
+            <input
+              type="text"
+              placeholder="Driver 2"
+              value={findDriver(drivers, "car", 2, "name")}
+              onChange={(e) => handleChange(2, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #3 </label>
+            <input
+              type="text"
+              placeholder="Driver 3"
+              value={findDriver(drivers, "car", 3, "name")}
+              onChange={(e) => handleChange(3, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #4 </label>
+            <input
+              type="text"
+              placeholder="Driver 4"
+              value={findDriver(drivers, "car", 4, "name")}
+              onChange={(e) => handleChange(4, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #5 </label>
+            <input
+              type="text"
+              placeholder="Driver 5"
+              value={findDriver(drivers, "car", 5, "name")}
+              onChange={(e) => handleChange(5, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #6 </label>
+            <input
+              type="text"
+              placeholder="Driver 6"
+              value={findDriver(drivers, "car", 6, "name")}
+              onChange={(e) => handleChange(6, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #7 </label>
+            <input
+              type="text"
+              placeholder="Driver 7"
+              value={findDriver(drivers, "car", 7, "name")}
+              onChange={(e) => handleChange(7, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
+          <div className="drivers-row">
+            <label>Car #8 </label>
+            <input
+              type="text"
+              placeholder="Driver 8"
+              value={findDriver(drivers, "car", 8, "name")}
+              onChange={(e) => handleChange(8, e.target.value)}
+              disabled={!editEnabled}
+            />
+          </div>
           {editEnabled && (
             <button type="submit" className="edit-button">
               Confirm
             </button>
           )}
         </form>
+
         {!editEnabled && !session.isActive && (
           <button className="edit-button" onClick={toggleEdit}>
             Edit
