@@ -2,12 +2,14 @@ import "./RaceControl.css";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
+import RaceTimer from "../components/RaceTimer";
 
 // RaceControl
 function RaceControl() {
   const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
+  const raceDuration = 30; // race duration in seconds
 
   // get updated sessions when front-desk updates sessions
   useEffect(() => {
@@ -49,6 +51,7 @@ function RaceControl() {
         sessions={sessions}
         setSessions={setSessions}
         socket={socket}
+        raceDuration={raceDuration}
       />
       <Link to="/" className="bbutton">
         Back to the main page
@@ -107,7 +110,9 @@ function SessionInfo({
   currentSession,
   setCurrentSession,
   socket,
+  raceDuration,
 }) {
+  // Handle clicking the "Start Race" button
   const handleStartRace = () => {
     //change the current session flag to "safe" and isActive=true
     setCurrentSession((prevCurrentSession) => ({
@@ -124,6 +129,16 @@ function SessionInfo({
 
     // update new sessions data through socket
     socket.emit("raceStarted", currentSessionRemoved);
+  };
+
+  // Handle finish race
+  const handleFinishRace = () => {
+    setCurrentSession((prevSession) => ({
+      ...prevSession,
+      raceMode: "finish",
+      isFinished: true,
+      isActive: false,
+    }));
   };
 
   // Handle End Session
@@ -165,10 +180,18 @@ function SessionInfo({
           </div>
         )}
       </div>
-      <div className="sessions-box">
-        <div className="info-box">Race timer:</div>
-        <div className="info-box">10:00:00</div>
-      </div>
+      {!currentSession?.isFinished && (
+        <div className="sessions-box">
+          <div className="info-box">Race timer:</div>
+          <div className="info-box">
+            <RaceTimer
+              durationInSeconds={raceDuration}
+              timerIsActive={currentSession?.isActive}
+              onFinish={() => handleFinishRace()}
+            />
+          </div>
+        </div>
+      )}
       <div className="sessions-box">
         <div className="info-box">
           {currentSession?.isActive || currentSession?.isFinished
@@ -182,7 +205,7 @@ function SessionInfo({
       {currentSession && (
         <div className="drivers-box">
           {currentSession?.drivers.map((driver, index) => (
-            <li>
+            <li key={driver.name}>
               <div className="car-nr">Car #{driver.car}:</div> {driver.name}
             </li>
           ))}
