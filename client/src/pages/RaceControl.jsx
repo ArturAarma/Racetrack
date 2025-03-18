@@ -24,6 +24,12 @@ function RaceControl() {
     };
   }, [socket]);
 
+  // send currentSession whenever currentSession is updated
+  useEffect(() => {
+    if (!socket) return;
+    socket.emit("updateCurrentSession", currentSession);
+  }, [socket, currentSession]);
+
   // get first session object with isConfirmed = true (front-desk has confirmed driver names)
   useEffect(() => {
     const firstConfirmedSession = sessions.find(
@@ -119,6 +125,7 @@ function SessionInfo({
       ...prevCurrentSession,
       isActive: true,
       raceMode: "safe",
+      startTime: Date.now(),
     }));
 
     // remove the current session from general sessions array when race is started

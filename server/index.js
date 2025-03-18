@@ -21,8 +21,14 @@ io.on("connection", (socket) => {
     io.emit("sessionsUpdated", sessions);
   });
 
+  // update sessions on front-desk when race-control starts a race
   socket.on("raceStarted", (updatedSessions) => {
     io.emit("removedSession", updatedSessions);
+  });
+
+  // update currentSession
+  socket.on("updateCurrentSession", (currentSession) => {
+    io.emit("currentSessionUpdated", currentSession);
   });
 
   socket.on("disconnect", () => {
