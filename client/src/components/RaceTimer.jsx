@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-function RaceTimer({ durationInSeconds, timerIsActive, onFinish }) {
+function RaceTimer({ timerIsActive, onFinish }) {
+  const durationInSeconds = Number(process.env.REACT_APP_RACE_TIMER);
   const [time, setTime] = useState(durationInSeconds);
 
   // reset the timer when race ends (timerIsActive changes)

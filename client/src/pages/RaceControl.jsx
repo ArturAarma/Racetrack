@@ -9,7 +9,6 @@ function RaceControl() {
   const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
-  const raceDuration = 30; // race duration in seconds
 
   // get updated sessions when front-desk updates sessions
   useEffect(() => {
@@ -57,7 +56,6 @@ function RaceControl() {
         sessions={sessions}
         setSessions={setSessions}
         socket={socket}
-        raceDuration={raceDuration}
       />
       <Link to="/" className="bbutton">
         Back to the main page
@@ -116,7 +114,6 @@ function SessionInfo({
   currentSession,
   setCurrentSession,
   socket,
-  raceDuration,
 }) {
   // Handle clicking the "Start Race" button
   const handleStartRace = () => {
@@ -192,7 +189,6 @@ function SessionInfo({
           <div className="info-box">Race timer:</div>
           <div className="info-box">
             <RaceTimer
-              durationInSeconds={raceDuration}
               timerIsActive={currentSession?.isActive}
               onFinish={() => handleFinishRace()}
             />
