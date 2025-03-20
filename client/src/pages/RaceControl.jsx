@@ -10,16 +10,33 @@ function RaceControl() {
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
 
-  // get updated sessions when front-desk updates sessions
   useEffect(() => {
     if (!socket) return;
+    // get updated sessions from server on connection
+    socket.on("getSessions", (updatedSessions) => {
+      setSessions(updatedSessions);
+    });
 
+    // get updated currentSession from server on connection
+    socket.on("getCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
+    // get updated sessions when front-desk updates sessions
     socket.on("sessionsUpdated", (updatedSessions) => {
       setSessions(updatedSessions);
     });
 
+    // get updated currentSession when LapLineTracker adds a lap
+    socket.on("addedLap", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
     return () => {
       socket.off("sessionsUpdated"); // Cleanup to avoid memory leaks
+      socket.off("addedLap"); // Cleanup to avoid memory leaks
+      socket.off("getSessions"); // Cleanup to avoid memory leaks
+      socket.off("getCurrentSession"); // Cleanup to avoid memory leaks
     };
   }, [socket]);
 
@@ -31,11 +48,9 @@ function RaceControl() {
 
   // get first session object with isConfirmed = true (front-desk has confirmed driver names)
   useEffect(() => {
-    const firstConfirmedSession = sessions.find(
-      (session) => session.isConfirmed === true
-    );
+    const firstConfirmedSession = sessions?.find((session) => session.isConfirmed === true);
     // if there is an ongoing active session, don't update currentSession
-    if (!currentSession?.isActive && !currentSession?.isFinished) {
+    if (currentSession !== "no" && !currentSession?.isActive && !currentSession?.isFinished) {
       setCurrentSession(firstConfirmedSession);
     }
   }, [sessions, currentSession]);
@@ -44,12 +59,7 @@ function RaceControl() {
   return (
     <div className="session-container">
       Race Control
-      {currentSession?.isActive && (
-        <FlagControls
-          currentSession={currentSession}
-          setCurrentSession={setCurrentSession}
-        />
-      )}
+      {currentSession?.isActive && <FlagControls currentSession={currentSession} setCurrentSession={setCurrentSession} />}
       <SessionInfo
         currentSession={currentSession}
         setCurrentSession={setCurrentSession}
@@ -57,7 +67,7 @@ function RaceControl() {
         setSessions={setSessions}
         socket={socket}
       />
-      <Link to="/" className="bbutton">
+      <Link reloadDocument to="/" className="bbutton">
         Back to the main page
       </Link>
     </div>
@@ -108,13 +118,7 @@ function FlagControls({ currentSession, setCurrentSession }) {
 }
 
 // SessionInfo
-function SessionInfo({
-  sessions,
-  setSessions,
-  currentSession,
-  setCurrentSession,
-  socket,
-}) {
+function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession, socket }) {
   // Handle clicking the "Start Race" button
   const handleStartRace = () => {
     //change the current session flag to "safe" and isActive=true
@@ -126,9 +130,7 @@ function SessionInfo({
     }));
 
     // remove the current session from general sessions array when race is started
-    const currentSessionRemoved = sessions.filter(
-      (session) => session.name !== currentSession.name
-    );
+    const currentSessionRemoved = sessions.filter((session) => session.name !== currentSession.name);
     setSessions(currentSessionRemoved);
 
     // update new sessions data through socket
@@ -160,24 +162,21 @@ function SessionInfo({
       Session Info
       <div className="sessions-box">
         <div className="info-box">Current race mode:</div>
-        {currentSession?.raceMode === "safe" &&
-          currentSession?.isFinished === false && (
-            <div className="info-box" id="safe">
-              Safe
-            </div>
-          )}
-        {currentSession?.raceMode === "hazard" &&
-          currentSession?.isFinished === false && (
-            <div className="info-box" id="hazard">
-              Hazard
-            </div>
-          )}
-        {currentSession?.raceMode === "danger" &&
-          currentSession?.isFinished === false && (
-            <div className="info-box" id="danger">
-              Danger
-            </div>
-          )}
+        {currentSession?.raceMode === "safe" && currentSession?.isFinished === false && (
+          <div className="info-box" id="safe">
+            Safe
+          </div>
+        )}
+        {currentSession?.raceMode === "hazard" && currentSession?.isFinished === false && (
+          <div className="info-box" id="hazard">
+            Hazard
+          </div>
+        )}
+        {currentSession?.raceMode === "danger" && currentSession?.isFinished === false && (
+          <div className="info-box" id="danger">
+            Danger
+          </div>
+        )}
         {currentSession?.isFinished === true && (
           <div className="info-box" id="finish">
             Finished
@@ -198,13 +197,9 @@ function SessionInfo({
       )}
       <div className="sessions-box">
         <div className="info-box">
-          {currentSession?.isActive || currentSession?.isFinished
-            ? "Current Session:"
-            : "Next Session:"}
+          {currentSession?.isActive || currentSession?.isFinished ? "Current Session:" : "Next Session:"}
         </div>
-        <div className="info-box">
-          {currentSession ? currentSession.name : "No upcoming sessions."}
-        </div>
+        <div className="info-box">{currentSession ? currentSession?.name : "No upcoming sessions."}</div>
       </div>
       {currentSession && (
         <div className="drivers-box">
@@ -215,13 +210,11 @@ function SessionInfo({
           ))}
         </div>
       )}
-      {currentSession &&
-        !currentSession?.isActive &&
-        !currentSession?.isFinished && (
-          <button className="bbutton" onClick={handleStartRace}>
-            Start Race
-          </button>
-        )}
+      {currentSession && !currentSession?.isActive && !currentSession?.isFinished && (
+        <button className="bbutton" onClick={handleStartRace}>
+          Start Race
+        </button>
+      )}
       {currentSession && currentSession?.isFinished && (
         <button className="bbutton" onClick={() => handleEndSession()}>
           End Session

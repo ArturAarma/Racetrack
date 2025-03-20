@@ -7,18 +7,29 @@ function LapLineTracker() {
   const socket = useContext(SocketContext);
   const [currentSession, setCurrentSession] = useState(null);
 
-  // get currentSession updates whenever Race-Control updates currentSession
   useEffect(() => {
     if (!socket) return;
 
+    // get updated currentSession from server on connection
+    socket.on("getCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
+    // get currentSession updates whenever Race-Control updates currentSession
     socket.on("currentSessionUpdated", (updatedCurrentSession) => {
       setCurrentSession(updatedCurrentSession);
     });
 
     return () => {
       socket.off("currentSessionUpdated");
+      socket.off("getCurrentSession");
     };
   }, [socket]);
+
+  // for testing
+  useEffect(() => {
+    console.log(currentSession);
+  }, [currentSession]);
 
   // ------------------------------------------------------
   // Handle crossing the finish line button
@@ -29,10 +40,7 @@ function LapLineTracker() {
       lapTime = ((Date.now() - currentSession.startTime) * 0.001).toFixed(2);
     } else {
       // if not the first lap, use specific drivers lapStartTime
-      lapTime = (
-        (Date.now() - currentSession.drivers[index].lapStartTime) *
-        0.001
-      ).toFixed(2);
+      lapTime = ((Date.now() - currentSession.drivers[index].lapStartTime) * 0.001).toFixed(2);
     }
 
     setCurrentSession((prevCurrentSession) => {
@@ -45,10 +53,7 @@ function LapLineTracker() {
 
       // set the bestLap time if current lapTime is faster than bestLap
       // or it's the first lap
-      if (
-        updatedSession.drivers[index].bestLap === null ||
-        updatedSession.drivers[index].bestLap > lapTime
-      ) {
+      if (updatedSession.drivers[index].bestLap === null || updatedSession.drivers[index].bestLap > lapTime) {
         updatedSession.drivers[index] = {
           ...updatedSession.drivers[index],
           bestLap: lapTime,
@@ -62,7 +67,8 @@ function LapLineTracker() {
         lapStartTime: Date.now(),
       };
 
-      console.log(updatedSession.drivers);
+      // update currentSession on server when lap is added
+      socket.emit("lapAdded", updatedSession);
       return updatedSession;
     });
   };
@@ -72,18 +78,11 @@ function LapLineTracker() {
       Lap Line Tracker
       {currentSession ? (
         !currentSession.startTime ? (
-          <div className="not-active">
-            Preparing session: {currentSession.name}
-          </div>
+          <div className="not-active">Preparing session: {currentSession.name}</div>
         ) : (
           <div className="lap-line-container">
             {currentSession?.drivers.map((driver, index) => (
-              <div
-                className="car-button"
-                key={driver.name}
-                disabled={true}
-                onClick={() => handleCrossingLine(index)}
-              >
+              <div className="car-button" key={driver.name} disabled={true} onClick={() => handleCrossingLine(index)}>
                 Car #{driver.car}
               </div>
             ))}
@@ -92,7 +91,7 @@ function LapLineTracker() {
       ) : (
         <div className="not-active">No confirmed sessions.</div>
       )}
-      <Link to="/" className="bbutton">
+      <Link reloadDocument to="/" className="bbutton">
         Back to the main page
       </Link>
     </div>

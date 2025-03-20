@@ -9,22 +9,22 @@ const Mainpage = () => {
       <div id="hpdiv">
         <div id="wtext">Welcome to the racetrack</div>
       </div>
-      <Link to="/racer" className="button">
+      <Link reloadDocument to="/racer" className="button">
         Racer
       </Link>
-      <Link to="/race-control" className="button">
+      <Link reloadDocument to="/race-control" className="button">
         Race control
       </Link>
-      <Link to="/frontdesk" className="button">
+      <Link reloadDocument to="/frontdesk" className="button">
         Frontdesk
       </Link>
-      <Link to="/lap-line-tracker" className="button">
+      <Link reloadDocument to="/lap-line-tracker" className="button">
         Lap-line tracker
       </Link>
-      <Link to="/flagbearer" className="button">
+      <Link reloadDocument to="/flagbearer" className="button">
         Flagbearer
       </Link>
-      <Link to="/race-flags" className="button">
+      <Link reloadDocument to="/race-flags" className="button">
         Flags
       </Link>
     </div>

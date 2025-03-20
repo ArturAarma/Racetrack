@@ -24,7 +24,7 @@ function RaceTimer({ startTime, timerIsActive, onFinish }) {
   }, [timerIsActive]);
 
   // for rendering countdown time
-  let timeRemaining = startTime ? Math.max(0, Math.ceil((finishTime - currentTime) / 1000)) : durationInSeconds;
+  let timeRemaining = startTime ? Math.max(0, Math.floor((finishTime - currentTime) / 1000)) : durationInSeconds;
 
   // run callback function when timer reaches 0
   useEffect(() => {
