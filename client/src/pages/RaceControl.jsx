@@ -191,6 +191,7 @@ function SessionInfo({
             <RaceTimer
               timerIsActive={currentSession?.isActive}
               onFinish={() => handleFinishRace()}
+              startTime={currentSession?.startTime}
             />
           </div>
         </div>
