@@ -121,12 +121,16 @@ function FlagControls({ currentSession, setCurrentSession }) {
 function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession, socket }) {
   // Handle clicking the "Start Race" button
   const handleStartRace = () => {
+    // make a copy of drivers to set as template for leader-board
+    const leaderBoardDrivers = [...currentSession.drivers];
+
     //change the current session flag to "safe" and isActive=true
     setCurrentSession((prevCurrentSession) => ({
       ...prevCurrentSession,
       isActive: true,
       raceMode: "safe",
       startTime: Date.now(),
+      leaderBoard: leaderBoardDrivers,
     }));
 
     // remove the current session from general sessions array when race is started

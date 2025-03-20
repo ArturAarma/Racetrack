@@ -31,7 +31,7 @@ function LapLineTracker() {
     console.log(currentSession);
   }, [currentSession]);
 
-  // ------------------------------------------------------
+  // ---------------------------------------------------- //
   // Handle crossing the finish line button
   const handleCrossingLine = (index) => {
     let lapTime;
@@ -44,7 +44,7 @@ function LapLineTracker() {
     }
 
     setCurrentSession((prevCurrentSession) => {
-      // make a deep copy of current session and drivers
+      // make a copy of current session and drivers
       const updatedSession = {
         ...prevCurrentSession,
         lapStartTime: Date.now(),
@@ -66,6 +66,8 @@ function LapLineTracker() {
         laps: [...updatedSession.drivers[index].laps, lapTime],
         lapStartTime: Date.now(),
       };
+
+      // sort leaderBoard array by fastest lap here
 
       // update currentSession on server when lap is added
       socket.emit("lapAdded", updatedSession);
