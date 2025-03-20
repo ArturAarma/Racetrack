@@ -9,9 +9,7 @@ function Frontdesk() {
 
   const addNewSession = (sessionName) => {
     if (sessions.find((session) => session.name === sessionName)) {
-      alert(
-        "Session with that name already exists. Please choose an unique name."
-      );
+      alert("Session with that name already exists. Please choose an unique name.");
     } else {
       if (sessionName.trim() !== "") {
         setSessions([
@@ -37,11 +35,7 @@ function Frontdesk() {
 
   const handleUpdateSession = (sessionName, updatedDrivers) => {
     setSessions((prevSessions) =>
-      prevSessions.map((s) =>
-        s.name === sessionName
-          ? { ...s, drivers: updatedDrivers, isConfirmed: true }
-          : s
-      )
+      prevSessions.map((s) => (s.name === sessionName ? { ...s, drivers: updatedDrivers, isConfirmed: true } : s))
     );
   };
 
@@ -51,15 +45,21 @@ function Frontdesk() {
     socket.emit("updateSessions", sessions);
   }, [socket, sessions]);
 
-  // get session update when race has started (active session is removed from front-desk)
   useEffect(() => {
     if (!socket) return;
+    // get updated sessions from server on connection
+    socket.on("getSessions", (updatedSessions) => {
+      setSessions(updatedSessions);
+    });
+
+    // get session update when race has started (active session is removed from front-desk)
     socket.on("removedSession", (updatedSessions) => {
       setSessions(updatedSessions);
     });
 
     return () => {
       socket.off("removedSession");
+      socket.off("getSessions");
     };
   }, [socket]);
 
@@ -70,7 +70,7 @@ function Frontdesk() {
       <div className="frontdeskHeader">Front desk</div>
       <AddSession onAddSession={addNewSession} />
       <div className="racerpanel">
-        {sessions.map((session, index) => (
+        {sessions?.map((session, index) => (
           <EditSession
             key={index}
             session={session}
@@ -81,7 +81,7 @@ function Frontdesk() {
         ))}
       </div>
       <div>
-        <Link to="/" className="bbutton" id="linkback">
+        <Link reloadDocument to="/" className="bbutton" id="linkback">
           Back to the main page
         </Link>
       </div>
@@ -139,9 +139,7 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
       const updatedDrivers = [...prevDrivers];
 
       // Find the driver object for this carNr (returns -1 if not found)
-      const driverIndex = updatedDrivers.findIndex(
-        (driver) => driver.car === carNr
-      );
+      const driverIndex = updatedDrivers.findIndex((driver) => driver.car === carNr);
 
       if (driverName.trim() !== "") {
         // Update driver name when driver with this carNr is found in the array
@@ -172,9 +170,7 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Filter out cars if no driver name is submitted
-    const filteredDrivers = drivers.filter(
-      (driver) => driver.name.trim() !== ""
-    );
+    const filteredDrivers = drivers.filter((driver) => driver.name.trim() !== "");
 
     // check that driver fields are not empty
     if (filteredDrivers.length === 0) {
@@ -213,9 +209,7 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
         {session.name}
       </div>
       <div className={session.isActive ? "session-active" : "session-inactive"}>
-        {session.isActive
-          ? "Session active, unable to edit"
-          : "Session inactive"}
+        {session.isActive ? "Session active, unable to edit" : "Session inactive"}
       </div>
 
       <div className="session-drivers">
