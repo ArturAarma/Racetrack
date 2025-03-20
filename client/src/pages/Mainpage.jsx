@@ -13,16 +13,16 @@ const Mainpage = () => {
         Racer
       </Link>
       <Link reloadDocument to="/race-control" className="button">
-        Race control
+        Race Control
       </Link>
       <Link reloadDocument to="/frontdesk" className="button">
-        Frontdesk
+        Front Desk
       </Link>
       <Link reloadDocument to="/lap-line-tracker" className="button">
-        Lap-line tracker
+        Lap-Line Tracker
       </Link>
-      <Link reloadDocument to="/flagbearer" className="button">
-        Flagbearer
+      <Link reloadDocument to="/leader-board" className="button">
+        Leader Board
       </Link>
       <Link reloadDocument to="/race-flags" className="button">
         Flags

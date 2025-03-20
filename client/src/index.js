@@ -6,6 +6,7 @@ import FrontdeskLogin from "./pages/FrontdeskLogin"; // Make sure 'frontdesklogi
 import FlagBearer from "./pages/FlagBearer";
 import RaceFlags from "./pages/race-flags";
 import LapLineTracker from "./pages/LapLineTracker";
+import LeaderBoard from "./pages/LeaderBoard";
 import { SocketProvider } from "./context/SocketContext";
 import Racer from "./pages/Racer";
 
@@ -29,8 +30,8 @@ const router = createBrowserRouter([
     element: <Frontdesk />,
   },
   {
-    path: "/flagbearer",
-    element: <FlagBearer />,
+    path: "/leader-board",
+    element: <LeaderBoard />,
   },
   {
     path: "/race-flags",
