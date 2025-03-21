@@ -37,10 +37,10 @@ function LapLineTracker() {
     let lapTime;
     // if it's the first lap, use currentSession.startTime
     if (currentSession.drivers[index].laps.length === 0) {
-      lapTime = ((Date.now() - currentSession.startTime) * 0.001).toFixed(2);
+      lapTime = Number(((Date.now() - currentSession.startTime) * 0.001).toFixed(2));
     } else {
       // if not the first lap, use specific drivers lapStartTime
-      lapTime = ((Date.now() - currentSession.drivers[index].lapStartTime) * 0.001).toFixed(2);
+      lapTime = Number(((Date.now() - currentSession.drivers[index].lapStartTime) * 0.001).toFixed(2));
     }
 
     setCurrentSession((prevCurrentSession) => {
