@@ -124,14 +124,17 @@ function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession,
     // make a copy of drivers to set as template for leader-board
     const leaderBoardDrivers = [...currentSession.drivers];
 
-    //change the current session flag to "safe" and isActive=true
-    setCurrentSession((prevCurrentSession) => ({
-      ...prevCurrentSession,
+    // change the current session flag to "safe" and isActive=true,
+    // add startTime and drivers for the leaderBoard
+    const updatedCurrentSession = {
+      ...currentSession,
       isActive: true,
       raceMode: "safe",
       startTime: Date.now(),
       leaderBoard: leaderBoardDrivers,
-    }));
+    };
+
+    setCurrentSession(updatedCurrentSession);
 
     // remove the current session from general sessions array when race is started
     const currentSessionRemoved = sessions.filter((session) => session.name !== currentSession.name);
@@ -153,6 +156,7 @@ function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession,
 
   // Handle End Session
   const handleEndSession = () => {
+    socket.emit("endSession");
     // when both isFinished and isActive are set to false, then useEffect sets
     // the next session from sessions array as currentSession
     setCurrentSession((prevCurrentSession) => ({
