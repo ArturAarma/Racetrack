@@ -67,7 +67,13 @@ function LapLineTracker() {
         lapStartTime: Date.now(),
       };
 
-      // sort leaderBoard array by fastest lap here
+      // sort leaderBoard array by fastest lap
+      const sortedLeaderboard = [...updatedSession.drivers];
+      // if bestLap doesn't have a value yet, set the value to Infinity to move it to the end of the leaderBoard
+      sortedLeaderboard.sort(
+        (a, b) => (a.bestLap !== null ? a.bestLap : Infinity) - (b.bestLap !== null ? b.bestLap : Infinity)
+      );
+      updatedSession.leaderBoard = sortedLeaderboard;
 
       // update currentSession on server when lap is added
       socket.emit("lapAdded", updatedSession);
