@@ -92,7 +92,8 @@ function LeaderBoard() {
         {currentSession &&
           currentSession.leaderBoard.map((driver, index) => (
             <div className="lb-position" key={driver.name}>
-              #{index + 1}: {driver.name} | Current lap: {driver.laps.length + 1 || 1} | Best Lap: {driver.bestLap}
+              #{index + 1}: Car {driver.car} | {driver.name} | Current lap: {driver.laps.length + 1 || 1} | Best Lap:{" "}
+              {driver.bestLap}
             </div>
           ))}
       </div>
