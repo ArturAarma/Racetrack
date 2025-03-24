@@ -22,6 +22,10 @@ function RaceControl() {
       setCurrentSession(updatedCurrentSession);
     });
 
+    socket.on("getConfirmedCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
     // get updated sessions when front-desk updates sessions
     socket.on("sessionsUpdated", (updatedSessions) => {
       setSessions(updatedSessions);
@@ -37,29 +41,28 @@ function RaceControl() {
       socket.off("addedLap"); // Cleanup to avoid memory leaks
       socket.off("getSessions"); // Cleanup to avoid memory leaks
       socket.off("getCurrentSession"); // Cleanup to avoid memory leaks
+      socket.off("getConfirmedCurrentSession");
     };
   }, [socket]);
 
-  // send currentSession whenever currentSession is updated
-  useEffect(() => {
-    if (!socket) return;
-    socket.emit("updateCurrentSession", currentSession);
-  }, [socket, currentSession]);
-
   // get first session object with isConfirmed = true (front-desk has confirmed driver names)
-  useEffect(() => {
-    const firstConfirmedSession = sessions?.find((session) => session.isConfirmed === true);
-    // if there is an ongoing active session, don't update currentSession
-    if (currentSession !== "no" && !currentSession?.isActive && !currentSession?.isFinished) {
-      setCurrentSession(firstConfirmedSession);
-    }
-  }, [sessions, currentSession]);
-  console.log(currentSession);
+  //   useEffect(() => {
+  //     if (!socket) return;
+  //     const firstConfirmedSession = sessions?.find((session) => session.isConfirmed === true);
+  //     // if there is an ongoing active session, don't update currentSession
+  //     if (!currentSession?.isActive && !currentSession?.isFinished) {
+  //       socket.emit("updateCurrentSession", firstConfirmedSession);
+  //       setCurrentSession(firstConfirmedSession);
+  //     }
+  //   }, [socket, sessions, currentSession]);
+  //   console.log(currentSession);
 
   return (
     <div className="session-container">
       Race Control
-      {currentSession?.isActive && <FlagControls currentSession={currentSession} setCurrentSession={setCurrentSession} />}
+      {currentSession?.isActive && (
+        <FlagControls currentSession={currentSession} setCurrentSession={setCurrentSession} socket={socket} />
+      )}
       <SessionInfo
         currentSession={currentSession}
         setCurrentSession={setCurrentSession}
@@ -75,25 +78,33 @@ function RaceControl() {
 }
 
 // FlagControls
-function FlagControls({ currentSession, setCurrentSession }) {
+function FlagControls({ currentSession, setCurrentSession, socket }) {
   // change flags
   const changeFlag = (flag) => {
     if (!currentSession.isFinished) {
-      setCurrentSession((prevSession) => ({
-        ...prevSession,
-        raceMode: flag,
-      }));
+      setCurrentSession((prevSession) => {
+        const updatedCurrentSession = {
+          ...prevSession,
+          raceMode: flag,
+        };
+        socket.emit("updateCurrentSession", updatedCurrentSession);
+        return updatedCurrentSession;
+      });
     }
   };
 
   // Handle finish race
   const handleFinishRace = () => {
-    setCurrentSession((prevSession) => ({
-      ...prevSession,
-      raceMode: "finish",
-      isFinished: true,
-      isActive: false,
-    }));
+    setCurrentSession((prevSession) => {
+      const updatedCurrentSession = {
+        ...prevSession,
+        raceMode: "finish",
+        isFinished: true,
+        isActive: false,
+      };
+      socket.emit("updateCurrentSession", updatedCurrentSession);
+      return updatedCurrentSession;
+    });
   };
 
   return (
@@ -134,7 +145,10 @@ function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession,
       leaderBoard: leaderBoardDrivers,
     };
 
+    console.log("Emitting updated current session:", updatedCurrentSession);
     setCurrentSession(updatedCurrentSession);
+    console.log("Socket connected?", socket.connected); // should be true
+    socket.emit("updateCurrentSession", updatedCurrentSession);
 
     // remove the current session from general sessions array when race is started
     const currentSessionRemoved = sessions.filter((session) => session.name !== currentSession.name);
@@ -146,23 +160,33 @@ function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession,
 
   // Handle finish race
   const handleFinishRace = () => {
-    setCurrentSession((prevSession) => ({
-      ...prevSession,
-      raceMode: "finish",
-      isFinished: true,
-      isActive: false,
-    }));
+    setCurrentSession((prevSession) => {
+      const updatedCurrentSession = {
+        ...prevSession,
+        raceMode: "finish",
+        isFinished: true,
+        isActive: false,
+      };
+
+      socket.emit("updateCurrentSession", updatedCurrentSession);
+      return updatedCurrentSession;
+    });
   };
 
   // Handle End Session
   const handleEndSession = () => {
     socket.emit("endSession");
+    socket.emit("updateCurrentSession");
+    socket.emit("requestConfirmedCurrentSession");
     // when both isFinished and isActive are set to false, then useEffect sets
     // the next session from sessions array as currentSession
-    setCurrentSession((prevCurrentSession) => ({
-      ...prevCurrentSession,
-      isFinished: false,
-    }));
+    // setCurrentSession((prevCurrentSession) => {
+    //   const updatedCurrentSession = {
+    //     ...prevCurrentSession,
+    //     isFinished: false,
+    //   };
+    //   return updatedCurrentSession;
+    // });
   };
 
   return (
@@ -219,7 +243,7 @@ function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession,
         </div>
       )}
       {currentSession && !currentSession?.isActive && !currentSession?.isFinished && (
-        <button className="bbutton" onClick={handleStartRace}>
+        <button className="bbutton" onClick={() => handleStartRace()}>
           Start Race
         </button>
       )}

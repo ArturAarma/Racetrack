@@ -18,30 +18,32 @@ function LeaderBoard() {
     socket.on("getEnableUpdateSession", (updatedEnableUpdateSession) => {
       setEnableUpdateSession(updatedEnableUpdateSession);
     });
+    // update leaderboard when lap is added
+    socket.on("addedLap", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
 
     // disable fetching new session until next race has started
     socket.on("startedRaceToLB", () => {
       setEnableUpdateSession(true);
+      socket.emit("requestCurrentSession");
     });
     socket.on("sessionHasEnded", () => {
       setEnableUpdateSession(false);
     });
 
-    return () => {
-      socket.off("startedRaceToLB");
-      socket.off("sessionHasEnded");
-    };
-  }, [socket]);
-
-  // update currentSession whenever it gets changed by RC or LLT
-  useEffect(() => {
-    if (!socket || !enableUpdateSession) return;
-
     socket.on("currentSessionUpdated", (updatedCurrentSession) => {
-      setCurrentSession(updatedCurrentSession);
+      if (enableUpdateSession) {
+        setCurrentSession(updatedCurrentSession);
+      }
     });
 
     return () => {
+      socket.off("getCurrentSession");
+      socket.off("getEnableUpdateSession");
+      socket.off("addedLap");
+      socket.off("startedRaceToLB");
+      socket.off("sessionHasEnded");
       socket.off("currentSessionUpdated");
     };
   }, [socket, enableUpdateSession]);

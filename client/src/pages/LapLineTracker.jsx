@@ -15,6 +15,12 @@ function LapLineTracker() {
       setCurrentSession(updatedCurrentSession);
     });
 
+    // get updated currentSession when session is Ended
+    socket.on("sessionHasEnded", () => socket.emit("requestCurrentSession"));
+
+    // get updated currentSession when FrontDesk confirms a session
+    socket.on("sessionConfirmedbyFD", () => socket.emit("requestCurrentSession"));
+
     // get currentSession updates whenever Race-Control updates currentSession
     socket.on("currentSessionUpdated", (updatedCurrentSession) => {
       setCurrentSession(updatedCurrentSession);
@@ -23,6 +29,8 @@ function LapLineTracker() {
     return () => {
       socket.off("currentSessionUpdated");
       socket.off("getCurrentSession");
+      socket.off("sessionHasEnded");
+      socket.off("sessionConfirmedbyFD");
     };
   }, [socket]);
 
@@ -45,7 +53,7 @@ function LapLineTracker() {
 
     setCurrentSession((prevCurrentSession) => {
       // make a copy of current session and drivers
-      const updatedSession = {
+      const updatedCurrentSession = {
         ...prevCurrentSession,
         lapStartTime: Date.now(),
         drivers: [...prevCurrentSession.drivers],
@@ -53,40 +61,40 @@ function LapLineTracker() {
 
       // set the bestLap time if current lapTime is faster than bestLap
       // or it's the first lap
-      if (updatedSession.drivers[index].bestLap === null || updatedSession.drivers[index].bestLap > lapTime) {
-        updatedSession.drivers[index] = {
-          ...updatedSession.drivers[index],
+      if (updatedCurrentSession.drivers[index].bestLap === null || updatedCurrentSession.drivers[index].bestLap > lapTime) {
+        updatedCurrentSession.drivers[index] = {
+          ...updatedCurrentSession.drivers[index],
           bestLap: lapTime,
         };
       }
 
       // add current laptime to laps and update lapStartTime
-      updatedSession.drivers[index] = {
-        ...updatedSession.drivers[index],
-        laps: [...updatedSession.drivers[index].laps, lapTime],
+      updatedCurrentSession.drivers[index] = {
+        ...updatedCurrentSession.drivers[index],
+        laps: [...updatedCurrentSession.drivers[index].laps, lapTime],
         lapStartTime: Date.now(),
       };
 
       // sort leaderBoard array by fastest lap
-      const sortedLeaderboard = [...updatedSession.drivers];
+      const sortedLeaderboard = [...updatedCurrentSession.drivers];
       // if bestLap doesn't have a value yet, set the value to Infinity to move it to the end of the leaderBoard
       sortedLeaderboard.sort(
         (a, b) => (a.bestLap !== null ? a.bestLap : Infinity) - (b.bestLap !== null ? b.bestLap : Infinity)
       );
-      updatedSession.leaderBoard = sortedLeaderboard;
+      updatedCurrentSession.leaderBoard = sortedLeaderboard;
 
       // update currentSession on server when lap is added
-      socket.emit("lapAdded", updatedSession);
-      return updatedSession;
+      socket.emit("lapAdded", updatedCurrentSession);
+      return updatedCurrentSession;
     });
   };
 
   return (
     <div className="ll-container">
       Lap Line Tracker
-      {currentSession ? (
-        !currentSession.startTime ? (
-          <div className="not-active">Preparing session: {currentSession.name}</div>
+      {currentSession != null ? (
+        !currentSession?.startTime ? (
+          <div className="not-active">Preparing session: {currentSession?.name}</div>
         ) : (
           <div className="lap-line-container">
             {currentSession?.drivers.map((driver, index) => (

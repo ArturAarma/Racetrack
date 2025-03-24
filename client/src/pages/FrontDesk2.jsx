@@ -12,7 +12,7 @@ function Frontdesk() {
       alert("Session with that name already exists. Please choose an unique name.");
     } else {
       if (sessionName.trim() !== "") {
-        setSessions([
+        const updatedSessions = [
           ...sessions,
           {
             name: sessionName,
@@ -24,26 +24,29 @@ function Frontdesk() {
             startTime: null,
             leaderBoard: [],
           },
-        ]);
+        ];
+        setSessions(updatedSessions);
+        socket.emit("updateSessions", updatedSessions);
       }
     }
   };
 
   const removeSession = (sessionName) => {
-    setSessions(sessions.filter((session) => session.name !== sessionName));
+    const updatedSessions = sessions.filter((session) => session.name !== sessionName);
+    setSessions(updatedSessions);
+    socket.emit("updateSessions", updatedSessions);
   };
 
   const handleUpdateSession = (sessionName, updatedDrivers) => {
-    setSessions((prevSessions) =>
-      prevSessions.map((s) => (s.name === sessionName ? { ...s, drivers: updatedDrivers, isConfirmed: true } : s))
-    );
+    setSessions((prevSessions) => {
+      const updatedSessions = prevSessions.map((s) =>
+        s.name === sessionName ? { ...s, drivers: updatedDrivers, isConfirmed: true } : s
+      );
+      socket.emit("updateSessions", updatedSessions);
+      socket.emit("FDSessionConfirmed");
+      return updatedSessions;
+    });
   };
-
-  // emit session data whenever sessions get updated
-  useEffect(() => {
-    if (!socket) return;
-    socket.emit("updateSessions", sessions);
-  }, [socket, sessions]);
 
   useEffect(() => {
     if (!socket) return;
