@@ -20,10 +20,33 @@ io.on("connection", (socket) => {
   socket.emit("getCurrentSession", stateMap.get("currentSession"));
   socket.emit("getEnableUpdateSession", stateMap.get("enableUpdateSession"));
 
-  // update sessions from FD to RC
+  // update confirmed sessions from FD to RC
   socket.on("updateSessions", (sessions) => {
     stateMap.set("sessions", sessions); // Save the changed sessions to State Map
+    // find the first sesiion where isConfirmed = true
+    const firstConfirmedSession = stateMap.get("sessions").find((session) => session.isConfirmed === true);
+    // only update when there is no active/ finished race going
+    if (
+      !stateMap.get("currentSession") ||
+      (!stateMap.get("currentSession").isActive && !stateMap.get("currentSession").isFinished)
+    ) {
+      stateMap.set("currentSession", firstConfirmedSession);
+      io.emit("getConfirmedCurrentSession", stateMap.get("currentSession")); // notify all clients
+    }
     io.emit("sessionsUpdated", stateMap.get("sessions"));
+  });
+
+  // update sessions on request
+  socket.on("requestSessions", () => socket.emit("getSessions", stateMap.get("sessions")));
+
+  // update currentSession on request
+  socket.on("requestCurrentSession", () => socket.emit("getCurrentSession", stateMap.get("currentSession")));
+
+  // update sessions on request
+  socket.on("requestConfirmedCurrentSession", () => {
+    const firstConfirmedSession = stateMap.get("sessions").find((session) => session.isConfirmed === true);
+    stateMap.set("currentSession", firstConfirmedSession);
+    socket.emit("getConfirmedCurrentSession", stateMap.get("currentSession"));
   });
 
   // update currentSession from RC to LLT and LB
@@ -41,6 +64,9 @@ io.on("connection", (socket) => {
     // enable fetching new sessions on Leader Board
     stateMap.set("enableUpdateSession", true);
     io.emit("startedRaceToLB");
+
+    // send currentSession to clients
+    io.emit("currentSessionUpdated", stateMap.get("currentSession"));
   });
 
   // disable fetching new sessions on LeaderBoard until the next race
@@ -49,10 +75,14 @@ io.on("connection", (socket) => {
     io.emit("sessionHasEnded");
   });
 
-  // Update RaceControl when LapLineTracker adds a lap
+  // Update RaceControl and LeaderBoard when LapLineTracker adds a lap
   socket.on("lapAdded", (currentSession) => {
     stateMap.set("currentSession", currentSession);
     io.emit("addedLap", stateMap.get("currentSession"));
+  });
+
+  socket.on("FDSessionConfirmed", () => {
+    io.emit("sessionConfirmedbyFD");
   });
 
   socket.on("disconnect", () => {
