@@ -13,6 +13,7 @@ import Racer from "./pages/Racer";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Frontdesk from "./pages/FrontDesk2";
 import RaceControl from "./pages/RaceControl";
+import RaceCountdown from "./pages/RaceCountdown";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -42,8 +43,8 @@ const router = createBrowserRouter([
     element: <LapLineTracker />,
   },
   {
-    path: "/racer",
-    element: <Racer />,
+    path: "/race-countdown",
+    element: <RaceCountdown />,
   },
 ]);
 root.render(

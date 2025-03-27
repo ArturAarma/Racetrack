@@ -24,7 +24,7 @@ function LeaderBoard() {
     });
 
     // disable fetching new session until next race has started
-    socket.on("startedRaceToLB", () => {
+    socket.on("startedRaceAlert", () => {
       setEnableUpdateSession(true);
       socket.emit("requestCurrentSession");
     });
@@ -42,7 +42,7 @@ function LeaderBoard() {
       socket.off("getCurrentSession");
       socket.off("getEnableUpdateSession");
       socket.off("addedLap");
-      socket.off("startedRaceToLB");
+      socket.off("startedRacelert");
       socket.off("sessionHasEnded");
       socket.off("currentSessionUpdated");
     };

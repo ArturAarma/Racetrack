@@ -27,6 +27,9 @@ const Mainpage = () => {
       <Link reloadDocument to="/race-flags" className="button">
         Flags
       </Link>
+      <Link reloadDocument to="/race-countdown" className="button">
+        Race Countdown
+      </Link>
     </div>
   );
 };

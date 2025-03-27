@@ -3,46 +3,37 @@ import { useEffect, useState } from "react";
 function RaceTimer({ startTime, timerIsActive, onFinish }) {
   const durationInSeconds = Number(process.env.REACT_APP_RACE_TIMER);
   const finishTime = startTime ? startTime + durationInSeconds * 1000 : null;
-  const [currentTime, setCurrentTime] = useState(null);
 
-  // update currentTime immediately when startTime is added (race has started)
-  useEffect(() => {
-    if (startTime) {
-      setCurrentTime(Date.now);
-    }
-  }, [startTime]);
+  const [, forceRerender] = useState(0);
 
-  // set current time every second while the race is active
+  // re-render component every second while the race is active
   useEffect(() => {
     if (!timerIsActive) return;
 
     const interval = setInterval(() => {
-      setCurrentTime(Date.now());
+      forceRerender((prev) => prev + 1);
     }, 1000);
 
     return () => clearInterval(interval); // cleanup interval
   }, [timerIsActive]);
 
-  // for rendering countdown time
-  let timeRemaining = startTime ? Math.max(0, Math.floor((finishTime - currentTime) / 1000)) : durationInSeconds;
+  const currentTime = Date.now();
+  let timeRemaining = startTime ? Math.max(0, Math.ceil((finishTime - currentTime) / 1000)) : durationInSeconds;
+  // if race is ended manually, show 00:00
+  if (!timerIsActive && startTime) {
+    timeRemaining = 0;
+  }
 
   // run callback function when timer reaches 0
   useEffect(() => {
-    if (timeRemaining === 0 && timerIsActive) {
+    if (onFinish && timeRemaining === 0 && timerIsActive) {
       onFinish();
     }
   }, [timeRemaining, timerIsActive, onFinish]);
 
-  let minutes = Math.floor(timeRemaining / 60);
-  let seconds = timeRemaining % 60;
-
   // format with leading "0"
-  if (minutes < 10) {
-    minutes = "0" + minutes;
-  }
-  if (seconds < 10) {
-    seconds = "0" + seconds;
-  }
+  const minutes = String(Math.floor(timeRemaining / 60)).padStart(2, "0");
+  const seconds = String(timeRemaining % 60).padStart(2, "0");
 
   return (
     <div>

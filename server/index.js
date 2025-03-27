@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
 
     // enable fetching new sessions on Leader Board
     stateMap.set("enableUpdateSession", true);
-    io.emit("startedRaceToLB");
+    io.emit("startedRaceAlert");
 
     // send currentSession to clients
     io.emit("currentSessionUpdated", stateMap.get("currentSession"));
