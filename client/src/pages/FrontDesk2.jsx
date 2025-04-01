@@ -35,6 +35,7 @@ function Frontdesk() {
     const updatedSessions = sessions.filter((session) => session.name !== sessionName);
     setSessions(updatedSessions);
     socket.emit("updateSessions", updatedSessions);
+    socket.emit("FDSessionConfirmed");
   };
 
   const handleUpdateSession = (sessionName, updatedDrivers) => {
@@ -211,8 +212,8 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
         Session #{queue}: <br></br>
         {session.name}
       </div>
-      <div className={session.isActive ? "session-active" : "session-inactive"}>
-        {session.isActive ? "Session active, unable to edit" : "Session inactive"}
+      <div className={session.isConfirmed ? "session-inactive" : "session-active"}>
+        {session.isConfirmed ? "Session confirmed" : "Add drivers to confirm"}
       </div>
 
       <div className="session-drivers">
