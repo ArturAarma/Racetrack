@@ -12,7 +12,7 @@ function RaceTimer({ startTime, timerIsActive, onFinish }) {
 
     const interval = setInterval(() => {
       forceRerender((prev) => prev + 1);
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(interval); // cleanup interval
   }, [timerIsActive]);

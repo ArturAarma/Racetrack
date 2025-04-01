@@ -26,11 +26,18 @@ function LapLineTracker() {
       setCurrentSession(updatedCurrentSession);
     });
 
+    //test
+    socket.on("getConfirmedCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
     return () => {
       socket.off("currentSessionUpdated");
       socket.off("getCurrentSession");
       socket.off("sessionHasEnded");
       socket.off("sessionConfirmedbyFD");
+      //test
+      socket.off("getConfirmedCurrentSession");
     };
   }, [socket]);
 
