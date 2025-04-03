@@ -105,14 +105,14 @@ MONGO_URI=your-mongodb-atlas-connection-string
 
 ```bash
 cd server
-npm run dev
+npm start
 ```
 
 ### Start the Frontend
 
 ```bash
 cd ../client
-npm run dev
+npm start
 ```
 
 By default, the frontend runs on `http://localhost:3000` and the backend on `http://localhost:4000`.
