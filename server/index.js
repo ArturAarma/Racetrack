@@ -35,6 +35,8 @@ mongoose
   })
   .catch((err) => {
     console.log("Connection error: ", err);
+    console.log("❌ Error connecting to MongoDB");
+    process.exit();
   });
 
 const io = new Server({
