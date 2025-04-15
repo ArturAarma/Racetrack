@@ -208,22 +208,23 @@ The **core object** passed between these interfaces is the `currentSession`, whi
 
 ```plaintext
 FrontDesk
-   │
-   ├── Emits sessions[] ───────┐
-   │                           ▼
-RaceControl               NextRace
-   │
-   ├── Sets currentSession{}
-   │
-   └── Emits currentSession{} ─────────────┐
-        │                                  ▼
-        ▼                            LapLineTracker
-  currentSession{}                    (updates laps)
-        │                                │
-        ├─────────────────┐              ▼
-        ▼                 ▼          Emits updated
-LeaderBoard       RaceCountdown     currentSession
-                  RaceFlag                │
-                                          ▼
+      │
+Emits sessions[] ──────────┐
+      |                    |
+      ▼                    ▼
+ RaceControl           NextRace
+      │
+Sets currentSession{}
+      │
+      └── Emits currentSession{} ─────────────┐
+           │                                  ▼
+           ▼                            LapLineTracker
+     currentSession{}                    (updates laps)
+           │                                │
+           ├─────────────────┐              ▼
+           ▼                 ▼          Emits updated
+   LeaderBoard       RaceCountdown     currentSession{}
+                     RaceFlag                │
+                                             ▼
                                    RaceControl (updates again)
 ```
