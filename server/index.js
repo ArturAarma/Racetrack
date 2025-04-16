@@ -12,6 +12,13 @@ stateMap.set("sessions", []);
 stateMap.set("currentSession", null);
 stateMap.set("enableUpdateSession", false);
 
+if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTROL_PW) {
+  console.log("Environment variables set!")
+} else {
+  console.log("You havent set up the environment variables, so im gonna stop working!")
+  process.exit(1); // Exit the process with a failure code
+}
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {

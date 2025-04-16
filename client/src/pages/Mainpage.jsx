@@ -9,13 +9,13 @@ const Mainpage = () => {
       <div id="hpdiv">
         <div id="wtext">Welcome to the racetrack</div>
       </div>
-      <Link reloadDocument to="/racer" className="button">
-        Racer
+      <Link reloadDocument to="/next-race" className="button">
+        Next race
       </Link>
       <Link reloadDocument to="/race-control" className="button">
         Race Control
       </Link>
-      <Link reloadDocument to="/frontdesk" className="button">
+      <Link reloadDocument to="/front-desk" className="button">
         Front Desk
       </Link>
       <Link reloadDocument to="/lap-line-tracker" className="button">

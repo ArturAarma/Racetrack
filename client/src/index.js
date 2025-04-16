@@ -11,7 +11,7 @@ import { SocketProvider } from "./context/SocketContext";
 import Racer from "./pages/Racer";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Frontdesk from "./pages/FrontDesk2";
+import FrontDesk from "./pages/front-desk.jsx";
 import RaceControl from "./pages/RaceControl";
 import RaceCountdown from "./pages/RaceCountdown";
 
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
     element: <RaceControl />,
   },
   {
-    path: "/frontdesk",
-    element: <Frontdesk />,
+    path: "/front-desk",
+    element: <FrontDesk />,
   },
   {
     path: "/leader-board",
@@ -45,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/race-countdown",
     element: <RaceCountdown />,
+  },
+  {
+    path: "/next-race",
+    element: <Racer />,
   },
 ]);
 root.render(

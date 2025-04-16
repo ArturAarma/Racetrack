@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import "./FrontDesk2.css";
+import "./front-desk.css";
 import { Link } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
 
-function Frontdesk() {
+function FrontDesk() {
   const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
 
@@ -320,4 +320,4 @@ function EditSession({ session, onRemove, onUpdate, queue }) {
   );
 }
 
-export default Frontdesk;
+export default FrontDesk;
