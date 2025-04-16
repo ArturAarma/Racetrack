@@ -5,20 +5,34 @@ import { SocketContext } from "../context/SocketContext";
 function RaceFlags() {
   const socket = useContext(SocketContext);
   const [flag, setFlag] = useState("safe");
+  const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
     if (!socket) return;
 
-    const handleFlagChange = (flagType) => {
-      setFlag(flagType);
-    };
+    socket.on("currentSessionUpdated", (session) => {
 
-    socket.on("getFlag", handleFlagChange);
+    setCurrentSession(session);
+    
+    });
+    
 
     return () => {
-      socket.off("getFlag", handleFlagChange);
+      socket.off("currentSessionUpdated");
     };
   }, [socket]);
+
+
+  useEffect(() => {
+
+    if (currentSession != null) {
+      setFlag(currentSession.raceMode);
+    } else {
+      console.log("currentsession is 0")
+    }
+    
+
+  })
 
   return (
     <div className="race-flags-container">
