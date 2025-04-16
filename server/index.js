@@ -13,10 +13,10 @@ stateMap.set("currentSession", null);
 stateMap.set("enableUpdateSession", false);
 
 if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTROL_PW) {
-  console.log("Environment variables set!")
+  console.log("✅ Environment variables set!")
 } else {
-  console.log("You havent set up the environment variables, so im gonna stop working!")
-  process.exit(1); // Exit the process with a failure code
+  console.log("❌ You havent set up the environment variables, so im gonna stop working!")
+  process.exit(1); 
 }
 
 mongoose
@@ -58,6 +58,32 @@ io.on("connection", (socket) => {
   socket.emit("getSessions", stateMap.get("sessions"));
   socket.emit("getCurrentSession", stateMap.get("currentSession"));
   socket.emit("getEnableUpdateSession", stateMap.get("enableUpdateSession"));
+
+  socket.on("checkPassword", (password) => {
+    
+    console.log(password);
+
+    let passwords = {
+      frontDesk: process.env.FRONTDESK_PW,
+      racecontrol: process.env.RACECONTROL_PW,
+      lapline: process.env.LAPLINE_PW
+    };
+
+    if (password === passwords.frontDesk) {
+      socket.emit("loginResult", "frontdesk")
+    } else if (password === passwords.racecontrol) {
+      socket.emit("loginResult", "racecontrol");
+    } else if (password === passwords.lapline) {
+      socket.emit("loginResult", "lapline");
+    } else {
+      socket.emit("loginResult", "invalid");
+    }
+
+    socket.on("disconnect", () => {
+      console.log("❌ A user disconnected");
+    });
+
+  });
 
   // update confirmed sessions from FD to RC
   socket.on("updateSessions", async (sessions) => {

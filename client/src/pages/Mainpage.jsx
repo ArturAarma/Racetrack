@@ -15,7 +15,7 @@ const Mainpage = () => {
       <Link reloadDocument to="/race-control" className="button">
         Race Control
       </Link>
-      <Link reloadDocument to="/front-desk" className="button">
+      <Link reloadDocument to="/front-desk-login" className="button">
         Front Desk
       </Link>
       <Link reloadDocument to="/lap-line-tracker" className="button">

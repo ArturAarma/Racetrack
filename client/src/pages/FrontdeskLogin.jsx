@@ -3,24 +3,52 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import FrontDesk from "./front-desk";
+import { useContext } from "react";
+import { SocketContext } from "../context/SocketContext";
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 import checkPw from '../components/CheckPw';
 
 
 
-function FrontdeskLogin() {
+function FrontDeskLogin() {
    
-   
+    const navigate = useNavigate();
+    const socket = useContext(SocketContext);
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState(null);
 
     const loginClick = (event) => {
-        event.preventDefault(); 
-        const status = checkPw(password);
-        setLoginStatus(status.toLowerCase());
+        event.preventDefault();
+        if (socket) {
+            socket.emit("checkPassword", password);
+        }
+        
     };
     
+    
+    useEffect(() => {
+        if (!socket) return;
 
+        socket.on("loginResult", (role) => {
+            if (role === "frontdesk") {
+                navigate("/front-desk");
+            } else {
+                alert("Invalid password");
+            }
+        });
+
+        return () => {
+            socket.off("loginResult");
+        };
+            }, [socket]);
+
+        
+  
 
     return (
         <div className="container">
@@ -63,5 +91,5 @@ function FrontdeskLogin() {
     
 }
 
-export default FrontdeskLogin;
+export default FrontDeskLogin;
 

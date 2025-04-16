@@ -1,7 +1,7 @@
 
 function checkPw(inputPw) {
     const passwords = {
-        frontDesk: "fro",
+        frontDesk: process.env.FRONTDESK_PW,
         security: "sec",
         racer: "rac"
     };
