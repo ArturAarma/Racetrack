@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 // import RaceControlLogin from "./pages/RaceControlLogin"; // Make sure 'SecurityLogin' is the correct file name
-import FrontdeskLogin from "./pages/FrontdeskLogin"; // Make sure 'frontdesklogin' is the correct file name
+import FrontDeskLogin from "./pages/FrontdeskLogin"; // Make sure 'frontdesklogin' is the correct file name
 import FlagBearer from "./pages/FlagBearer";
 import RaceFlags from "./pages/race-flags";
 import LapLineTracker from "./pages/LapLineTracker";
@@ -27,8 +27,16 @@ const router = createBrowserRouter([
     element: <RaceControl />,
   },
   {
+    path: "/race-control-login",
+    element: <RaceControlLogin />,
+  },
+  {
     path: "/front-desk",
     element: <FrontDesk />,
+  },
+  {
+    path: "/front-desk-login",
+    element: <FrontDeskLogin />,
   },
   {
     path: "/leader-board",
@@ -41,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/lap-line-tracker",
     element: <LapLineTracker />,
+  },
+  {
+    path: "/lap-line-tracker-login",
+    element: <LapLineTrackerlogin />,
   },
   {
     path: "/race-countdown",
