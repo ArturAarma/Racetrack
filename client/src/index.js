@@ -14,6 +14,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import FrontDesk from "./pages/front-desk.jsx";
 import RaceControl from "./pages/RaceControl";
 import RaceCountdown from "./pages/RaceCountdown";
+import RaceControlLogin from "./pages/RaceControlLogin";
+import LapLineTrackerLogin from "./pages/LapLineTrackerLogin";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -52,7 +55,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lap-line-tracker-login",
-    element: <LapLineTrackerlogin />,
+    element: <LapLineTrackerLogin />,
   },
   {
     path: "/race-countdown",
