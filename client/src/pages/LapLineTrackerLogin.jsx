@@ -1,11 +1,12 @@
-import "./RaceControlLogin.css";
+import "./LapLineTrackerLogin.css";
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import RaceControl from "./RaceControl";
+
 import { useContext } from "react";
 import { SocketContext } from "../context/SocketContext";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import LapLineTracker from "./LapLineTracker";
 
 
 
@@ -14,8 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
-function RaceControlLogin() {
+function LapLineTrackerLogin() {
    
     const navigate = useNavigate();
     const socket = useContext(SocketContext);
@@ -35,8 +35,8 @@ function RaceControlLogin() {
         if (!socket) return;
 
         socket.on("loginResult", (role) => {
-            if (role === "racecontrol") {
-                navigate("/race-control");
+            if (role === "lapline") {
+                navigate("/lap-line-tracker");
             } else {
                 alert("Invalid password");
             }
@@ -69,9 +69,9 @@ function RaceControlLogin() {
                     <Link to="/" className="bbutton">Back to the main page</Link>
                 </div>
                 </div>
-            ) : loginStatus === "racecontrol" ? (
-                <div className='race control'>
-                   <RaceControl/>
+            ) : loginStatus === "lapline" ? (
+                <div className='lap line'>
+                   <LapLineTracker/>
                 </div>
             ) : loginStatus === "invalid" ? (
                 <div className='invalid'>
@@ -91,5 +91,5 @@ function RaceControlLogin() {
     
 }
 
-export default RaceControlLogin;
+export default LapLineTrackerLogin;
 

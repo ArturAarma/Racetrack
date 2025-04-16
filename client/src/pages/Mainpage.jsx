@@ -12,13 +12,13 @@ const Mainpage = () => {
       <Link reloadDocument to="/next-race" className="button">
         Next race
       </Link>
-      <Link reloadDocument to="/race-control" className="button">
+      <Link reloadDocument to="/race-control-login" className="button">
         Race Control
       </Link>
       <Link reloadDocument to="/front-desk-login" className="button">
         Front Desk
       </Link>
-      <Link reloadDocument to="/lap-line-tracker" className="button">
+      <Link reloadDocument to="/lap-line-tracker-login" className="button">
         Lap-Line Tracker
       </Link>
       <Link reloadDocument to="/leader-board" className="button">
