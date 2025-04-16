@@ -113,3 +113,14 @@
     margin: 10px; */
   color: white;
 }
+
+
+/* linkbackiga midagi putsis, voiks olla sama lai kui teised nupud */
+
+#linkback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: fit-content;
+
+}

@@ -27,6 +27,7 @@ const Racer = () => {
     }, [socket]);
   
     return (
+      <div>
         <div className="RacerSelection">
         {driver ? ( 
             <div className="driverInfo">
@@ -36,6 +37,13 @@ const Racer = () => {
         ) : (
             <div>No active driver selected.</div>
         )}
+        
+    </div>
+    <div>
+          <Link reloadDocument to="/" className="bbutton" id="linkback">
+                  Back to the main page
+          </Link>
+        </div>
     </div>
 );
 };

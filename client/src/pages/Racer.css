@@ -37,3 +37,8 @@
   text-decoration: none;
   text-align: center;
 }
+
+#linkback {
+  min-width: 220px;
+  min-height: 10px;
+}

@@ -22,7 +22,7 @@ const Mainpage = () => {
         Lap-Line Tracker
       </Link>
       <Link reloadDocument to="/leader-board" className="button">
-        Leader Board
+        Leaderboard
       </Link>
       <Link reloadDocument to="/race-flags" className="button">
         Flags
