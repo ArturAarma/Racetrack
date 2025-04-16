@@ -102,7 +102,9 @@ io.on("connection", (socket) => {
 
       await CurrentSession.deleteMany({}); //mongodb
       if (firstConfirmedSession) {
-        await new CurrentSession(firstConfirmedSession).save();
+        const sessionToSave = { ...firstConfirmedSession };
+        delete sessionToSave._id;
+        await new CurrentSession(sessionToSave).save();
       }
 
       io.emit("getConfirmedCurrentSession", stateMap.get("currentSession")); // notify all clients
@@ -123,7 +125,9 @@ io.on("connection", (socket) => {
     // update mongoDB
     await CurrentSession.deleteMany({}); //mongodb
     if (firstConfirmedSession) {
-      await new CurrentSession(firstConfirmedSession).save();
+      const sessionToSave = { ...firstConfirmedSession };
+      delete sessionToSave._id;
+      await new CurrentSession(sessionToSave).save();
     }
     socket.emit("getConfirmedCurrentSession", stateMap.get("currentSession"));
   });
