@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./LeaderBoard.css";
 import { SocketContext } from "../context/SocketContext";
 import RaceTimer from "../components/RaceTimer";
+import { Link } from "react-router-dom";
 
 function LeaderBoard() {
   const [enableUpdateSession, setEnableUpdateSession] = useState(false);
@@ -96,6 +97,11 @@ function LeaderBoard() {
               {driver.bestLap}
             </div>
           ))}
+      </div>
+      <div>
+        <Link reloadDocument to="/" className="bbutton" id="linkback">
+          Back to the main page
+        </Link>
       </div>
     </div>
   );
