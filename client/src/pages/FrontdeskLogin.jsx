@@ -2,7 +2,7 @@ import "./FrontdeskLogin.css";
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-import Frontdesk from "./Frontdesk";
+import FrontDesk from "./front-desk";
 
 import checkPw from '../components/CheckPw';
 
@@ -43,7 +43,7 @@ function FrontdeskLogin() {
                 </div>
             ) : loginStatus === "frontdesk" ? (
                 <div className='front desk'>
-                   <Frontdesk/>
+                   <FrontDesk/>
                 </div>
             ) : loginStatus === "invalid" ? (
                 <div className='invalid'>
