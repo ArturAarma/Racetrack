@@ -3,7 +3,10 @@ import mongoose from "mongoose";
 import Sessions from "./model/Sessions.js"; // mongodb model for sessions
 import CurrentSession from "./model/CurrentSession.js"; // mongodb model for currentSession
 import EnableUpdateSession from "./model/EnableUpdateSession.js"; // mongodb model for enableUpdateSession
-import "dotenv/config";
+import dotenv from 'dotenv';  // Import dotenv using ES module syntax
+dotenv.config();  // Load environment variables from .env
+
+
 
 // Map to store different states
 const stateMap = new Map();
@@ -12,12 +15,20 @@ stateMap.set("sessions", []);
 stateMap.set("currentSession", null);
 stateMap.set("enableUpdateSession", false);
 
+//require('dotenv').config();
+
+const devTimer = process.env.DEV_TIMER; // 1-minute in dev, default to 60
+const raceTimer = process.env.RACE_TIMER || 600; // 10-minute in production, default to 600
+
+console.log(`Timer is set to: ${process.env.NODE_ENV === 'development' ? devTimer : raceTimer} seconds.`);
+
 if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTROL_PW) {
   console.log("✅ Environment variables set!")
 } else {
   console.log("❌ You havent set up the environment variables, so im gonna stop working!")
   process.exit(1); 
 }
+
 
 mongoose
   .connect(process.env.MONGO_URI)
