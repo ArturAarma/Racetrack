@@ -3,7 +3,14 @@ import mongoose from "mongoose";
 import Sessions from "./model/Sessions.js"; // mongodb model for sessions
 import CurrentSession from "./model/CurrentSession.js"; // mongodb model for currentSession
 import EnableUpdateSession from "./model/EnableUpdateSession.js"; // mongodb model for enableUpdateSession
+<<<<<<< HEAD
 import "dotenv/config";
+=======
+import dotenv from 'dotenv';  // Import dotenv using ES module syntax
+dotenv.config();  // Load environment variables from .env
+
+
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
 
 // Map to store different states
 const stateMap = new Map();
@@ -12,6 +19,16 @@ stateMap.set("sessions", []);
 stateMap.set("currentSession", null);
 stateMap.set("enableUpdateSession", false);
 
+<<<<<<< HEAD
+=======
+//require('dotenv').config();
+
+const devTimer = process.env.DEV_TIMER; // 1-minute in dev, default to 60
+const raceTimer = process.env.RACE_TIMER || 600; // 10-minute in production, default to 600
+
+console.log(`Timer is set to: ${process.env.NODE_ENV === 'development' ? devTimer : raceTimer} seconds.`);
+
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
 if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTROL_PW) {
   console.log("✅ Environment variables set!")
 } else {
@@ -19,6 +36,10 @@ if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTRO
   process.exit(1); 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {
@@ -76,7 +97,14 @@ io.on("connection", (socket) => {
     } else if (password === passwords.lapline) {
       socket.emit("loginResult", "lapline");
     } else {
+<<<<<<< HEAD
       socket.emit("loginResult", "invalid");
+=======
+      setTimeout(() => {
+        socket.emit("loginResult", "invalid");
+      }, 500);
+      
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
     }
 
     socket.on("disconnect", () => {

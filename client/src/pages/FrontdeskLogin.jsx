@@ -11,7 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+<<<<<<< HEAD
 import checkPw from '../components/CheckPw';
+=======
+
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
 
 
 
@@ -21,10 +25,19 @@ function FrontDeskLogin() {
     const socket = useContext(SocketContext);
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState(null);
+<<<<<<< HEAD
 
     const loginClick = (event) => {
         event.preventDefault();
         if (socket) {
+=======
+    const [isChecking, setChecking] = useState(false);
+
+    const loginClick = (event) => {
+        event.preventDefault();
+        if (socket && !isChecking) {
+            setChecking(true);
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
             socket.emit("checkPassword", password);
         }
         
@@ -35,6 +48,10 @@ function FrontDeskLogin() {
         if (!socket) return;
 
         socket.on("loginResult", (role) => {
+<<<<<<< HEAD
+=======
+            setChecking(false);
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
             if (role === "frontdesk") {
                 navigate("/front-desk");
             } else {
@@ -50,6 +67,7 @@ function FrontDeskLogin() {
         
   
 
+<<<<<<< HEAD
     return (
         <div className="container">
             <form onSubmit={loginClick}>
@@ -88,6 +106,29 @@ function FrontDeskLogin() {
             </form>
         </div>
     );
+=======
+            return (
+                <div className="container">
+                  <form onSubmit={loginClick}>
+                    <div className="login">
+                      <input 
+                        type="text" 
+                        placeholder="password" 
+                        id="loginInput" 
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)} 
+                      />
+                      <button type="submit" disabled={isChecking}>
+                        {isChecking ? "Checking..." : "Login"}
+                      </button>
+                    </div>
+                    <div>
+                      <Link to="/" className="bbutton">Back to the main page</Link>
+                    </div>
+                  </form>
+                </div>
+              );
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
     
 }
 
