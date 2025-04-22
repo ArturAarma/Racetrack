@@ -4,13 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "start": "nodemon index.js",
-    "dev": "node index.js",
-=======
     "start": "cross-env NODE_ENV=production SERVER_TIMER=600 nodemon index.js",
     "dev": "cross-env NODE_ENV=development DEV_TIMER=60 node index.js",
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
