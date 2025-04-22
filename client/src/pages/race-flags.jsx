@@ -10,6 +10,10 @@ function RaceFlags() {
   useEffect(() => {
     if (!socket) return;
 
+    socket.on("getCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
     socket.on("currentSessionUpdated", (session) => {
 
     setCurrentSession(session);
