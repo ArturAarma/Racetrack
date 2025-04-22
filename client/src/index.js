@@ -16,6 +16,7 @@ import RaceControl from "./pages/RaceControl";
 import RaceCountdown from "./pages/RaceCountdown";
 import RaceControlLogin from "./pages/RaceControlLogin";
 import LapLineTrackerLogin from "./pages/LapLineTrackerLogin";
+import NextRace from "./pages/NextRace";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/next-race",
-    element: <Racer />,
+    element: <NextRace />,
   },
 ]);
 root.render(
