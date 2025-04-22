@@ -1,0 +1,206 @@
+.session-container {
+  width: fit-content;
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+.hheader {
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+.session-container .bbutton {
+  width: auto;
+  height: 40px;
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 10px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10px;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.session-container button.bbutton {
+  width: 96%;
+  font-size: 24px;
+}
+
+.session-container .bbutton:hover {
+  background-color: rgba(255, 100, 185, 0.7);
+}
+
+.flag-controls-container {
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.flags-box {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(168, 59, 141, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.flags-box #safe,
+.flags-box #hazard,
+.flags-box #danger,
+.flags-box #finish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  border-radius: 15px;
+  font-size: 25px;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 5px black;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.flags-box #safe {
+  background-color: green;
+  border: solid 3px rgb(60, 255, 92);
+}
+
+.flags-box #hazard {
+  background-color: rgb(243, 213, 42);
+  border: solid 3px rgb(238, 240, 121);
+}
+
+.flags-box #danger {
+  background-color: red;
+  border: solid 3px rgb(235, 93, 93);
+}
+
+.flags-box #finish {
+  background: repeating-conic-gradient(black 0deg 90deg, white 90deg 180deg);
+  background-size: 25px 25px;
+  border: solid 3px rgb(71, 71, 71);
+}
+
+.flags-box #safe:hover,
+.flags-box #hazard:hover,
+.flags-box #danger:hover,
+.flags-box #finish:hover {
+  border: solid 3px;
+}
+
+.sessions-box {
+  display: flex;
+  justify-content: space-between; /* Adjust spacing */
+  align-items: center; /* Aligns vertically */
+  background-color: rgba(168, 59, 141, 0.5);
+  font-size: 20px;
+  border-radius: 10px;
+  /* padding: 10px; */
+  color: white;
+  border: 1px solid black;
+}
+
+.info-box {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.sessions-box #safe {
+  background-color: green;
+  border-radius: 10px;
+  border: solid 1px rgb(60, 255, 92);
+  padding-right: 75px;
+  padding-left: 75px;
+}
+
+.sessions-box #hazard {
+  color: black;
+  background-color: rgb(243, 213, 42);
+  border-radius: 10px;
+  border: solid 1px rgb(238, 240, 121);
+  padding-right: 75px;
+  padding-left: 75px;
+}
+
+.sessions-box #danger {
+  color: black;
+  background-color: red;
+  border-radius: 10px;
+  border: solid 1px rgb(235, 93, 93);
+  padding-right: 75px;
+  padding-left: 75px;
+}
+
+.sessions-box #finish {
+  background: repeating-conic-gradient(black 0deg 90deg, white 90deg 180deg);
+  background-size: 25px 25px;
+  border-radius: 10px;
+  border: solid 1px rgb(71, 71, 71);
+  paint-order: stroke fill;
+  -webkit-text-stroke: 5px black;
+  padding-right: 75px;
+  padding-left: 75px;
+}
+
+.drivers-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* justify-content: space-between; Adjust spacing */
+  /* align-items: center; Aligns vertically */
+  background-color: rgba(168, 59, 141, 0.5);
+  font-size: 14px;
+  border-radius: 10px;
+  /* padding: 10px; */
+  color: white;
+  border: 1px solid black;
+}
+
+.drivers-box ul {
+  margin: 5px;
+  padding-left: 15px;
+}
+
+.drivers-box li {
+  list-style: none;
+  text-align: center;
+}
+
+.drivers-box .car-nr {
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  text-decoration: underline;
+}

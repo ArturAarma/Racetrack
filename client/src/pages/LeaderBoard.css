@@ -1,0 +1,144 @@
+.lb-container {
+  width: 85vw;
+<<<<<<< HEAD
+=======
+  height: 30vw;
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+.leader-board-container {
+<<<<<<< HEAD
+  display: grid;
+=======
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
+  max-height: 60vh;
+  background-color: rgba(168, 59, 141, 0.5);
+  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+  border: solid 2px rgb(255, 158, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
+.lb-position {
+  border: solid 2px;
+  border-radius: 10px;
+}
+
+.lb-sessions-box {
+  display: flex;
+  justify-content: space-between; /* Adjust spacing */
+  align-items: center; /* Aligns vertically */
+  background-color: rgba(168, 59, 141, 0.5);
+  font-size: 20px;
+  border-radius: 10px;
+  /* padding: 10px; */
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+  border: 1px solid black;
+}
+
+.lb-container .info-box {
+  width: 50%;
+  height: 100%;
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
+  /* padding-left: 175px;
+  padding-right: 50px; */
+}
+
+.lb-container #safe {
+  width: 50%;
+  height: 100%;
+  background-color: green;
+  border-radius: 10px;
+  border: solid 1px rgb(60, 255, 92);
+  /* padding-right: 200px;
+  padding-left: 200px; */
+}
+
+.lb-container #hazard {
+  width: 50%;
+  height: 100%;
+  color: black;
+  background-color: rgb(243, 213, 42);
+  border-radius: 10px;
+  border: solid 1px rgb(238, 240, 121);
+  /* padding-right: 190px;
+  padding-left: 190px; */
+}
+
+.lb-container #danger {
+  width: 50%;
+  height: 100%;
+  color: black;
+  background-color: red;
+  border-radius: 10px;
+  border: solid 1px rgb(235, 93, 93);
+  /* padding-right: 190px;
+  padding-left: 190px; */
+}
+
+.lb-container #finish {
+  width: 50%;
+  height: 100%;
+  background: repeating-conic-gradient(black 0deg 90deg, white 90deg 180deg);
+  background-size: 25px 25px;
+  border-radius: 10px;
+  border: solid 1px rgb(71, 71, 71);
+  paint-order: stroke fill;
+  -webkit-text-stroke: 5px black;
+  /* padding-right: 190px;
+  padding-left: 190px; */
+}
+
+.lb-container #timer {
+  width: 50%;
+}
+
+.leader-board-container .not-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  height: 40vh;
+  /* background-color: rgba(168, 59, 141, 0.5);
+    box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
+    border: solid 2px rgb(255, 158, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px; */
+  color: white;
+}
+
+
+/* linkbackiga midagi putsis, voiks olla sama lai kui teised nupud */
+
+#linkback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: fit-content;
+
+}
