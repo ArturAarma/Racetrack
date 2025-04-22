@@ -11,11 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-<<<<<<< HEAD
-import checkPw from '../components/CheckPw';
-=======
-
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
 
 
 
@@ -25,19 +20,12 @@ function FrontDeskLogin() {
     const socket = useContext(SocketContext);
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState(null);
-<<<<<<< HEAD
-
-    const loginClick = (event) => {
-        event.preventDefault();
-        if (socket) {
-=======
     const [isChecking, setChecking] = useState(false);
 
     const loginClick = (event) => {
         event.preventDefault();
         if (socket && !isChecking) {
             setChecking(true);
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
             socket.emit("checkPassword", password);
         }
         
@@ -48,12 +36,10 @@ function FrontDeskLogin() {
         if (!socket) return;
 
         socket.on("loginResult", (role) => {
-<<<<<<< HEAD
-=======
             setChecking(false);
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
             if (role === "frontdesk") {
                 navigate("/front-desk");
+                window.location.reload();
             } else {
                 alert("Invalid password");
             }
@@ -67,46 +53,6 @@ function FrontDeskLogin() {
         
   
 
-<<<<<<< HEAD
-    return (
-        <div className="container">
-            <form onSubmit={loginClick}>
-            {loginStatus === null ? (
-                <div>
-                <div className="login">
-                    <input 
-                    type="text" 
-                    placeholder="password" 
-                    id="loginInput" 
-                    defaultValue={""} 
-                    onChange={e => setPassword(e.target.value)} 
-                    />
-                    <button type="submit">Login</button>
-                </div>
-                <div>
-                    <Link to="/" className="bbutton">Back to the main page</Link>
-                </div>
-                </div>
-            ) : loginStatus === "frontdesk" ? (
-                <div className='front desk'>
-                   <FrontDesk/>
-                </div>
-            ) : loginStatus === "invalid" ? (
-                <div className='invalid'>
-                    <div>Enter valid password</div>
-                    <Link to="/" className="bbutton">Back to the main page</Link>
-                </div>
-            ) : (
-                <div className='invalid'>
-                    <div>Unexpected error. Please try again.</div>
-                    <Link to="/" className="bbutton">Back to the main page</Link>
-                </div>
-
-            )}
-            </form>
-        </div>
-    );
-=======
             return (
                 <div className="container">
                   <form onSubmit={loginClick}>
@@ -128,7 +74,6 @@ function FrontDeskLogin() {
                   </form>
                 </div>
               );
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
     
 }
 

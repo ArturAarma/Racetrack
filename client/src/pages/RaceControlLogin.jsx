@@ -37,6 +37,7 @@ function RaceControlLogin() {
         socket.on("loginResult", (role) => {
             if (role === "racecontrol") {
                 navigate("/race-control");
+                window.location.reload();
             } else {
                 alert("Invalid password");
             }

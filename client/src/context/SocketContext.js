@@ -16,6 +16,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     const newSocket = io(IP ? `http://${IP}:4000` : "http://localhost:4000");
+    console.log("Socket connected to server with IP: ", IP);
     setSocket(newSocket);
 
     return () => newSocket.disconnect();
