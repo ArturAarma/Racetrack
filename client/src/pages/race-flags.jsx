@@ -16,10 +16,10 @@ function RaceFlags() {
 
     socket.on("currentSessionUpdated", (session) => {
 
-    setCurrentSession(session);
-    
+      setCurrentSession(session);
+
     });
-    
+
 
     return () => {
       socket.off("currentSessionUpdated");
@@ -34,7 +34,7 @@ function RaceFlags() {
     } else {
       console.log("currentsession is 0")
     }
-    
+
 
   })
 

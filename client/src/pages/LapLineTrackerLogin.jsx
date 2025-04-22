@@ -16,7 +16,7 @@ import LapLineTracker from "./LapLineTracker";
 
 
 function LapLineTrackerLogin() {
-   
+
     const navigate = useNavigate();
     const socket = useContext(SocketContext);
     const [password, setPassword] = useState("");
@@ -27,10 +27,10 @@ function LapLineTrackerLogin() {
         if (socket) {
             socket.emit("checkPassword", password);
         }
-        
+
     };
-    
-    
+
+
     useEffect(() => {
         if (!socket) return;
 
@@ -45,50 +45,50 @@ function LapLineTrackerLogin() {
         return () => {
             socket.off("loginResult");
         };
-            }, [socket]);
+    }, [socket]);
 
-        
-  
+
+
 
     return (
         <div className="container">
             <form onSubmit={loginClick}>
-            {loginStatus === null ? (
-                <div>
-                <div className="login">
-                    <input 
-                    type="text" 
-                    placeholder="password" 
-                    id="loginInput" 
-                    defaultValue={""} 
-                    onChange={e => setPassword(e.target.value)} 
-                    />
-                    <button type="submit">Login</button>
-                </div>
-                <div>
-                    <Link to="/" className="bbutton">Back to the main page</Link>
-                </div>
-                </div>
-            ) : loginStatus === "lapline" ? (
-                <div className='lap line'>
-                   <LapLineTracker/>
-                </div>
-            ) : loginStatus === "invalid" ? (
-                <div className='invalid'>
-                    <div>Enter valid password</div>
-                    <Link to="/" className="bbutton">Back to the main page</Link>
-                </div>
-            ) : (
-                <div className='invalid'>
-                    <div>Unexpected error. Please try again.</div>
-                    <Link to="/" className="bbutton">Back to the main page</Link>
-                </div>
+                {loginStatus === null ? (
+                    <div>
+                        <div className="login">
+                            <input
+                                type="text"
+                                placeholder="password"
+                                id="loginInput"
+                                defaultValue={""}
+                                onChange={e => setPassword(e.target.value)}
+                            />
+                            <button type="submit">Login</button>
+                        </div>
+                        <div>
+                            <Link to="/" className="bbutton">Back to the main page</Link>
+                        </div>
+                    </div>
+                ) : loginStatus === "lapline" ? (
+                    <div className='lap line'>
+                        <LapLineTracker />
+                    </div>
+                ) : loginStatus === "invalid" ? (
+                    <div className='invalid'>
+                        <div>Enter valid password</div>
+                        <Link to="/" className="bbutton">Back to the main page</Link>
+                    </div>
+                ) : (
+                    <div className='invalid'>
+                        <div>Unexpected error. Please try again.</div>
+                        <Link to="/" className="bbutton">Back to the main page</Link>
+                    </div>
 
-            )}
+                )}
             </form>
         </div>
     );
-    
+
 }
 
 export default LapLineTrackerLogin;

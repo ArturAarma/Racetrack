@@ -9,43 +9,43 @@ import { SocketContext } from "../context/SocketContext";
 
 const Racer = () => {
 
-    const socket = useContext(SocketContext);
-    const [driver, setDriver] = useState(null);
-  
-    useEffect(() => {
-      if (!socket) return;
-  
-      const handleActiveDriver = (selectedDriver) => {
-        setDriver(selectedDriver);
-      };
-  
-      socket.on("getDriver", handleActiveDriver);
-  
-      return () => {
-        socket.off("getDriver", handleActiveDriver);
-      };
-    }, [socket]);
-  
-    return (
-      <div>
-        <div className="RacerSelection">
-        {driver ? ( 
-            <div className="driverInfo">
-                <div>Active driver: {driver.name}</div>
-                
-            </div>
-        ) : (
-            <div>No active driver selected.</div>
-        )}
-        
-    </div>
+  const socket = useContext(SocketContext);
+  const [driver, setDriver] = useState(null);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleActiveDriver = (selectedDriver) => {
+      setDriver(selectedDriver);
+    };
+
+    socket.on("getDriver", handleActiveDriver);
+
+    return () => {
+      socket.off("getDriver", handleActiveDriver);
+    };
+  }, [socket]);
+
+  return (
     <div>
-          <Link reloadDocument to="/" className="bbutton" id="linkback">
-                  Back to the main page
-          </Link>
-        </div>
+      <div className="RacerSelection">
+        {driver ? (
+          <div className="driverInfo">
+            <div>Active driver: {driver.name}</div>
+
+          </div>
+        ) : (
+          <div>No active driver selected.</div>
+        )}
+
+      </div>
+      <div>
+        <Link reloadDocument to="/" className="bbutton" id="linkback">
+          Back to the main page
+        </Link>
+      </div>
     </div>
-);
+  );
 };
 
 export default Racer;
