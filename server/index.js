@@ -29,7 +29,6 @@ if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTRO
   process.exit(1); 
 }
 
-
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {

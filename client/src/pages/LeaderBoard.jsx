@@ -88,7 +88,10 @@ function LeaderBoard() {
           </div>
         )}
       </div>
+<<<<<<< HEAD
+=======
       <div className="bottom-area">
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
       <div className="leader-board-container">
         {!currentSession && "No active sessions."}
         {currentSession &&
@@ -104,7 +107,10 @@ function LeaderBoard() {
           Back to the main page
         </Link>
       </div>
+<<<<<<< HEAD
+=======
       </div>
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
     </div>
   );
 }

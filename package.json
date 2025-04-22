@@ -3,8 +3,11 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "typescript": "^5.8.2"
+<<<<<<< HEAD
+=======
   },
   "dependencies": {
     "cross-env": "^7.0.3"
+>>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
   }
 }
