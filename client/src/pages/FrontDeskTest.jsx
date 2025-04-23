@@ -11,7 +11,7 @@ function Frontdesk() {
         // Add a new div to the list
         if (drivers.length < RacerList.length) {
             const newDriver = {
-                id: RacerList[drivers.length].name, 
+                id: RacerList[drivers.length].name,
                 name: RacerList[drivers.length].name,
             };
             setDrivers([...drivers, newDriver])
@@ -20,19 +20,19 @@ function Frontdesk() {
 
     function removeThisDriver(id) {
         setDrivers(drivers.filter(driver => driver.id !== id));
-      }
+    }
 
-    
+
     return (
         <div className="container">
             <div className="frontdeskHeader">Front desk</div>
             <div className="racerpanel">
                 <div className="PanelButtons">
-                    
+
                     <AddRacer addDriver={addDriver} />
                 </div>
                 <div className="Racers">
-                {drivers.map(driver => (
+                    {drivers.map(driver => (
                         <div key={driver.id} className="drivers" id={driver.id}>
                             <div>{driver.name}</div>
                             <button className="removebutton" onClick={() => removeThisDriver(driver.id)}>

@@ -26,7 +26,7 @@ if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTRO
   console.log("✅ Environment variables set!")
 } else {
   console.log("❌ You havent set up the environment variables, so im gonna stop working!")
-  process.exit(1); 
+  process.exit(1);
 }
 
 mongoose
@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
   socket.emit("getEnableUpdateSession", stateMap.get("enableUpdateSession"));
 
   socket.on("checkPassword", (password) => {
-    
+
     console.log(password);
 
     let passwords = {
@@ -89,7 +89,7 @@ io.on("connection", (socket) => {
       setTimeout(() => {
         socket.emit("loginResult", "invalid");
       }, 500);
-      
+
     }
 
     socket.on("disconnect", () => {

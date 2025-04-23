@@ -30,6 +30,7 @@ function FrontDeskLogin() {
       setChecking(false);
       if (role === "frontdesk") {
         navigate("/front-desk");
+        window.location.reload();
       } else {
         alert("Invalid password");
       }
