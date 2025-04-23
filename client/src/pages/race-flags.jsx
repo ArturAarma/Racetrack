@@ -4,15 +4,11 @@ import { SocketContext } from "../context/SocketContext";
 
 function RaceFlags() {
   const socket = useContext(SocketContext);
-  const [flag, setFlag] = useState("safe");
+  const [flag, setFlag] = useState("danger");
   const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
     if (!socket) return;
-
-    socket.on("getCurrentSession", (updatedCurrentSession) => {
-      setCurrentSession(updatedCurrentSession);
-    });
 
     // get updated currentSession from server on connection
     socket.on("getCurrentSession", (updatedCurrentSession) => {
@@ -24,6 +20,7 @@ function RaceFlags() {
     });
 
     return () => {
+      socket.off("getCurrentSession");
       socket.off("currentSessionUpdated");
     };
   }, [socket]);
@@ -32,6 +29,7 @@ function RaceFlags() {
     if (currentSession != null) {
       setFlag(currentSession.raceMode);
     } else {
+      setFlag("danger");
       console.log("currentsession is 0");
     }
   });

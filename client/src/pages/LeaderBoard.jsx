@@ -91,13 +91,26 @@ function LeaderBoard() {
       <div className="bottom-area">
         <div className="leader-board-container">
           {!currentSession && "No active sessions."}
-          {currentSession &&
-            currentSession.leaderBoard.map((driver, index) => (
-              <div className="lb-position" key={driver.name}>
-                #{index + 1}: Car {driver.car} | {driver.name} | Current lap: {driver.laps.length + 1 || 1} | Best Lap:{" "}
-                {driver.bestLap}
+          {currentSession && (
+            <div className="leaderboard-active">
+              <div className="leaderboard-row leaderboard-header">
+                <div>Position</div>
+                <div>Car Nr</div>
+                <div>Driver Name</div>
+                <div>Current Lap</div>
+                <div>Best Lap</div>
               </div>
-            ))}
+              {currentSession.leaderBoard.map((driver, index) => (
+                <div key={driver.car} className="leaderboard-row">
+                  <div>{index + 1}</div>
+                  <div>{driver.car}</div>
+                  <div>{driver.name}</div>
+                  <div>{driver.laps.length}</div>
+                  <div>{driver.bestLap}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div>
           <Link reloadDocument to="/" className="bbutton" id="linkback">

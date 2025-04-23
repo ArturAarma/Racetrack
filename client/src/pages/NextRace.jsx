@@ -1,11 +1,10 @@
 import "./NextRace.css";
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../context/SocketContext";
 
 function NextRace() {
-
   const socket = useContext(SocketContext);
 
   const [sessions, setSessions] = useState([]);
@@ -13,10 +12,13 @@ function NextRace() {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("getSessions", (updatedCurrentSession) => {
-      setSessions(updatedCurrentSession);
+    socket.on("getSessions", (updatedSessions) => {
+      setSessions(updatedSessions);
     });
 
+    socket.on("sessionsUpdated", (updatedSessions) => {
+      setSessions(updatedSessions);
+    });
     socket.on("startedRaceAlert", () => {
       socket.emit("requestSessions");
     });
@@ -25,17 +27,13 @@ function NextRace() {
       socket.emit("requestSessions");
     });
 
-
-
-
-
     return () => {
       socket.off("getSessions");
+      socket.off("sessionsUpdated");
       socket.off("startedRaceAlert");
       socket.off("sessionsHasEnded");
     };
   }, [socket]);
-
 
   return (
     <div className="container">
@@ -49,29 +47,26 @@ function NextRace() {
                 <p>Up next: {sessions[0].name}</p>
 
                 <div className="leader-board-container">
-
                   {sessions &&
                     sessions[0].drivers.map((driver, index) => (
                       <div className="lb-position" key={index}>
                         {driver.name}
-
                       </div>
-
                     ))}
                   <div>
                     <p>Proceed to the paddock</p>
                   </div>
                 </div>
-
               </div>
             ) : (
               <p>No sessions available</p>
             )}
           </div>
-
         </div>
 
-        <Link to="/" className="bbutton" id="linkback">Back to the main page</Link>
+        <Link to="/" className="bbutton" id="linkback">
+          Back to the main page
+        </Link>
       </div>
     </div>
   );
