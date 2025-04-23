@@ -3,10 +3,8 @@ import mongoose from "mongoose";
 import Sessions from "./model/Sessions.js"; // mongodb model for sessions
 import CurrentSession from "./model/CurrentSession.js"; // mongodb model for currentSession
 import EnableUpdateSession from "./model/EnableUpdateSession.js"; // mongodb model for enableUpdateSession
-import dotenv from 'dotenv';  // Import dotenv using ES module syntax
-dotenv.config();  // Load environment variables from .env
-
-
+import dotenv from "dotenv"; // Import dotenv using ES module syntax
+dotenv.config(); // Load environment variables from .env
 
 // Map to store different states
 const stateMap = new Map();
@@ -19,13 +17,19 @@ stateMap.set("enableUpdateSession", false);
 
 const devTimer = process.env.DEV_TIMER; // 1-minute in dev, default to 60
 const raceTimer = process.env.RACE_TIMER || 600; // 10-minute in production, default to 600
+if (process.env.NODE_ENV === "development") {
+  stateMap.set("timer", devTimer);
+} else {
+  stateMap.set("timer", raceTimer);
+}
+console.log(stateMap.get("timer"));
 
-console.log(`Timer is set to: ${process.env.NODE_ENV === 'development' ? devTimer : raceTimer} seconds.`);
+console.log(`Timer is set to: ${process.env.NODE_ENV === "development" ? devTimer : raceTimer} seconds.`);
 
 if (process.env.FRONTDESK_PW && process.env.LAPLINE_PW && process.env.RACECONTROL_PW) {
-  console.log("✅ Environment variables set!")
+  console.log("✅ Environment variables set!");
 } else {
-  console.log("❌ You havent set up the environment variables, so im gonna stop working!")
+  console.log("❌ You havent set up the environment variables, so im gonna stop working!");
   process.exit(1);
 }
 
@@ -69,18 +73,21 @@ io.on("connection", (socket) => {
   socket.emit("getCurrentSession", stateMap.get("currentSession"));
   socket.emit("getEnableUpdateSession", stateMap.get("enableUpdateSession"));
 
-  socket.on("checkPassword", (password) => {
+  socket.on("requestTimerDuration", () => {
+    socket.emit("getTimerDuration", stateMap.get("timer"));
+  });
 
+  socket.on("checkPassword", (password) => {
     console.log(password);
 
     let passwords = {
       frontDesk: process.env.FRONTDESK_PW,
       racecontrol: process.env.RACECONTROL_PW,
-      lapline: process.env.LAPLINE_PW
+      lapline: process.env.LAPLINE_PW,
     };
 
     if (password === passwords.frontDesk) {
-      socket.emit("loginResult", "frontdesk")
+      socket.emit("loginResult", "frontdesk");
     } else if (password === passwords.racecontrol) {
       socket.emit("loginResult", "racecontrol");
     } else if (password === passwords.lapline) {
@@ -89,13 +96,11 @@ io.on("connection", (socket) => {
       setTimeout(() => {
         socket.emit("loginResult", "invalid");
       }, 500);
-
     }
 
     socket.on("disconnect", () => {
       console.log("❌ A user disconnected");
     });
-
   });
 
   // update confirmed sessions from FD to RC

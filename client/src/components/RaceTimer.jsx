@@ -1,10 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { SocketContext } from "../context/SocketContext";
 
 function RaceTimer({ startTime, timerIsActive, onFinish }) {
-  const durationInSeconds = Number(process.env.REACT_APP_RACE_TIMER);
+  const socket = useContext(SocketContext);
+  const [durationInSeconds, setDurationInSeconds] = useState(600);
   const finishTime = startTime ? startTime + durationInSeconds * 1000 : null;
-
   const [, forceRerender] = useState(0);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    // timer duration
+    socket.emit("requestTimerDuration");
+
+    socket.on("getTimerDuration", (duration) => {
+      setDurationInSeconds(duration);
+    });
+
+    return () => {
+      socket.off("getTimerDuration");
+    };
+  }, [socket]);
 
   // re-render component every second while the race is active
   useEffect(() => {
