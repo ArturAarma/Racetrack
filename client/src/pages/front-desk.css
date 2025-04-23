@@ -7,9 +7,9 @@
 .frontdeskHeader {
   /* width: 490px;
   height: 20px; */
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -25,9 +25,9 @@
 .racerpanel {
   /* width: 95vw;
   height: 50vh; */
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -54,16 +54,16 @@
 }
 
 .racerpanel::-webkit-scrollbar-thumb {
-  background: rgba(255, 100, 185, 0.7);
+  background: rgb(0, 0, 0);
   border-radius: 10px;
 }
 
 .PanelButtons {
   width: 220px;
   height: 100px;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -81,9 +81,9 @@
   min-height: 100px;
   width: fit-content;
   height: fit-content;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -108,9 +108,9 @@
 .drivers {
   min-width: 70px;
   min-height: 100px;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -126,9 +126,9 @@
 .removebutton {
   width: 30px; /* Increased size to accommodate content */
   height: 30px; /* Increased size to accommodate content */
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 1px 2px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgba(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 1px 2px rgba(0, 255, 255);
+  border: solid 2px rgba(0, 255, 255);
   border-radius: 5px; /* Adjusted for the new size */
   padding: 3px; /* Reduced padding */
   margin: 20px;
@@ -149,9 +149,9 @@
   justify-content: flex-start;
   padding: 10px;
   overflow: hidden; /* Prevents content from spilling out */
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   margin: 10px;
   color: white;
@@ -166,9 +166,9 @@
   padding-right: 20px;
   margin-bottom: 10px;
   font-size: 14px;
-  background-color: rgb(29, 152, 89);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 194, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+  /* border: solid 2px rgb(0, 255, 255); */
   border-radius: 10px;
 }
 
@@ -179,8 +179,8 @@
   margin-bottom: 10px;
   font-size: 14px;
   background-color: rgb(241, 245, 17);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.7);
+  /* border: solid 2px rgb(0, 255, 255); */
   border-radius: 10px;
 }
 
@@ -200,9 +200,9 @@
 .edit-button {
   width: 130px;
   /* height: 6px; */
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 10px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   /* padding: 10px; */
   margin: 5px auto;
@@ -220,9 +220,9 @@
 .add-session-container {
   /* width: 490px;
   height: 20px; */
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -255,7 +255,7 @@
 }
 
 .edit-button:hover {
-  background-color: rgba(255, 100, 185, 0.7);
+  background-color: rgba(0, 125, 125);
 }
 
 .bbutton {
@@ -264,5 +264,5 @@
 }
 
 .bbutton:hover {
-  background-color: rgba(255, 100, 185, 0.7);
+  background-color: rgb(0, 125, 125);
 }

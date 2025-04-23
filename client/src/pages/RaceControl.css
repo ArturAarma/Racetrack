@@ -1,8 +1,8 @@
 .session-container {
   width: fit-content;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -12,9 +12,9 @@
 }
 
 .hheader {
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -26,9 +26,9 @@
 .session-container .bbutton {
   width: auto;
   height: 40px;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 10px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 10px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 5px;
   margin: 10px;
@@ -49,13 +49,13 @@
 }
 
 .session-container .bbutton:hover {
-  background-color: rgba(255, 100, 185, 0.7);
+  background-color: rgba(0, 255, 255);
 }
 
 .flag-controls-container {
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -66,7 +66,7 @@
 .flags-box {
   display: flex;
   justify-content: center;
-  background-color: rgba(168, 59, 141, 0.5);
+  background-color: rgb(0, 0, 0);
   border-radius: 10px;
   padding: 10px;
   color: white;
@@ -123,7 +123,7 @@
   display: flex;
   justify-content: space-between; /* Adjust spacing */
   align-items: center; /* Aligns vertically */
-  background-color: rgba(168, 59, 141, 0.5);
+  background-color: rgb(0, 0, 0);
   font-size: 20px;
   border-radius: 10px;
   /* padding: 10px; */
@@ -181,7 +181,7 @@
   padding-bottom: 5px;
   /* justify-content: space-between; Adjust spacing */
   /* align-items: center; Aligns vertically */
-  background-color: rgba(168, 59, 141, 0.5);
+  background-color: rgb(0, 0, 0);
   font-size: 14px;
   border-radius: 10px;
   /* padding: 10px; */

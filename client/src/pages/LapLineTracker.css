@@ -1,8 +1,8 @@
 .ll-container {
   width: 85vw;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -14,9 +14,9 @@
 .ll-container .bbutton {
   width: auto;
   height: 40px;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 10px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 5px;
   margin: 10px;
@@ -36,9 +36,9 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   height: 40vh;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -52,9 +52,9 @@
   justify-content: center;
   font-size: 50px;
   height: 40vh;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -64,8 +64,8 @@
 .car-button {
   display: flex;
   font-size: 40px;
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   align-items: center;
   justify-content: center;
@@ -74,5 +74,5 @@
 }
 
 .car-button:hover {
-  background-color: rgba(255, 100, 185, 0.7);
+  background-color: rgba(0, 255, 255);
 }

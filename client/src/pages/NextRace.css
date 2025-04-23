@@ -1,9 +1,9 @@
 .nr-container {
   width: 85vw;
   height: fit-content;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
@@ -18,7 +18,7 @@
   justify-content: flex-start;
   height: auto;
   /* max-height: 60vh; */
-  background-color: rgba(168, 59, 141, 0.5);
+  background-color: rgb(0, 0, 0);
   /* box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); */
   /* border: solid 2px rgb(255, 158, 255, 0.5); */
   border: solid 2px black;
@@ -37,7 +37,7 @@
   justify-content: flex-start;
   height: auto;
   /* max-height: 60vh; */
-  background-color: rgba(168, 59, 141, 0.5);
+  background-color: rgb(0, 0, 0);
   /* box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); */
   /* border: solid 2px rgb(255, 158, 255, 0.5); */
   border: solid 2px black;
@@ -63,17 +63,17 @@
   margin-bottom: 10px;
   font-size: 26px;
   background-color: rgb(29, 152, 89);
-  box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
 }
 
 .next-race-container .bbutton {
   width: auto;
   height: 40px;
-  background-color: rgba(168, 59, 141, 0.5);
-  box-shadow: 0 0 10px rgba(255, 100, 185, 0.7);
-  border: solid 2px rgb(255, 158, 255, 0.5);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 10px rgba(0, 255, 255);
+  border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
   padding: 5px;
   margin: 10px;
@@ -94,5 +94,5 @@
 }
 
 .next-race-container .bbutton:hover {
-  background-color: rgba(255, 100, 185, 0.7);
+  background-color: rgb(0, 0, 0);
 }
