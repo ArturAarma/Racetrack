@@ -10,29 +10,27 @@ function RaceFlags() {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("currentSessionUpdated", (session) => {
-
-    setCurrentSession(session);
-    
+    // get updated currentSession from server on connection
+    socket.on("getCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
     });
-    
+
+    socket.on("currentSessionUpdated", (session) => {
+      setCurrentSession(session);
+    });
 
     return () => {
       socket.off("currentSessionUpdated");
     };
   }, [socket]);
 
-
   useEffect(() => {
-
     if (currentSession != null) {
       setFlag(currentSession.raceMode);
     } else {
-      console.log("currentsession is 0")
+      console.log("currentsession is 0");
     }
-    
-
-  })
+  });
 
   return (
     <div className="race-flags-container">

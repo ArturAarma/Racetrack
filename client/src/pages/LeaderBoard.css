@@ -1,9 +1,6 @@
 .lb-container {
   width: 85vw;
-<<<<<<< HEAD
-=======
   height: 30vw;
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
   background-color: rgba(168, 59, 141, 0.5);
   box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
   border: solid 2px rgb(255, 158, 255, 0.5);
@@ -16,13 +13,9 @@
 }
 
 .leader-board-container {
-<<<<<<< HEAD
-  display: grid;
-=======
   display: flex;
   flex-direction: column;
   justify-content: space-between;
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
   max-height: 60vh;
   background-color: rgba(168, 59, 141, 0.5);
   box-shadow: 0 0 20px rgba(255, 100, 185, 0.7);
@@ -34,10 +27,6 @@
   font-size: 20px;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
 .lb-position {
   border: solid 2px;
   border-radius: 10px;
@@ -60,10 +49,7 @@
 .lb-container .info-box {
   width: 50%;
   height: 100%;
-<<<<<<< HEAD
-=======
-  
->>>>>>> 976042e5db55c0fdbd1f90a17de3735da1d5317f
+
   /* padding-left: 175px;
   padding-right: 50px; */
 }
@@ -132,7 +118,6 @@
   color: white;
 }
 
-
 /* linkbackiga midagi putsis, voiks olla sama lai kui teised nupud */
 
 #linkback {
@@ -140,5 +125,4 @@
   align-items: center;
   justify-content: center;
   max-width: fit-content;
-
 }
