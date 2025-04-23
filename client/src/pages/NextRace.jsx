@@ -8,17 +8,29 @@ function NextRace() {
   const socket = useContext(SocketContext);
 
   const [sessions, setSessions] = useState([]);
+  const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
     if (!socket) return;
 
+    // get updated sessions from server on connection
     socket.on("getSessions", (updatedSessions) => {
       setSessions(updatedSessions);
+    });
+
+    // get updated currentSession from server on connection
+    socket.on("getCurrentSession", (updatedCurrentSession) => {
+      setCurrentSession(updatedCurrentSession);
+    });
+
+    socket.on("currentSessionUpdated", (currentSession) => {
+      setCurrentSession(currentSession);
     });
 
     socket.on("sessionsUpdated", (updatedSessions) => {
       setSessions(updatedSessions);
     });
+
     socket.on("startedRaceAlert", () => {
       socket.emit("requestSessions");
     });
@@ -29,6 +41,8 @@ function NextRace() {
 
     return () => {
       socket.off("getSessions");
+      socket.off("getCurrentSession");
+      socket.off("currentSessionUpdated");
       socket.off("sessionsUpdated");
       socket.off("startedRaceAlert");
       socket.off("sessionsHasEnded");
@@ -36,32 +50,29 @@ function NextRace() {
   }, [socket]);
 
   return (
-    <div className="container">
-      <div className="frontdeskHeader">Next Race</div>
-      <div className="racerpanel">
+    <div className="nr-container">
+      Next Race
+      <div className="next-race-container">
         <div className="nextsession">
-          <h1>Next session</h1>
-          <div className="sessioninfo">
-            {sessions.length > 0 ? (
-              <div className="sessiondetails">
-                <p>Up next: {sessions[0].name}</p>
-
-                <div className="leader-board-container">
-                  {sessions &&
-                    sessions[0].drivers.map((driver, index) => (
-                      <div className="lb-position" key={index}>
-                        {driver.name}
-                      </div>
-                    ))}
-                  <div>
-                    <p>Proceed to the paddock</p>
-                  </div>
-                </div>
+          {sessions.length > 0 ? (
+            <div className="sessiondetails">
+              <h2>Up next: {sessions[0].name}</h2>
+              {!currentSession?.isActive && !currentSession?.isFinished && (
+                <div className="paddock-alert">Proceed to the paddock</div>
+              )}
+              <div className="next-race-drivers">
+                {sessions &&
+                  sessions[0].drivers.map((driver, index) => (
+                    <div className="nr-driver" key={index}>
+                      Car {index + 1}: {driver.name}
+                    </div>
+                  ))}
+                <div></div>
               </div>
-            ) : (
-              <p>No sessions available</p>
-            )}
-          </div>
+            </div>
+          ) : (
+            <h1>No upcoming sessions available</h1>
+          )}
         </div>
 
         <Link to="/" className="bbutton" id="linkback">
