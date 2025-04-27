@@ -229,4 +229,8 @@ httpServer.listen(4000, () => {
 const url = await tunnelmole({
   port: 4000,
 });
-console.log("Your public url:\n", url);
+
+console.log("\n======================================================================");
+console.log(`Server started on http://localhost:4000`);
+console.log(`Tunnelmole public URL: ${url}`);
+console.log("======================================================================\n");
