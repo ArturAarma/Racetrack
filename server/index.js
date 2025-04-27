@@ -1,12 +1,17 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { tunnelmole } from "tunnelmole";
 import mongoose from "mongoose";
 import Sessions from "./model/Sessions.js"; // mongodb model for sessions
 import CurrentSession from "./model/CurrentSession.js"; // mongodb model for currentSession
 import EnableUpdateSession from "./model/EnableUpdateSession.js"; // mongodb model for enableUpdateSession
 import dotenv from "dotenv"; // Import dotenv using ES module syntax
 dotenv.config(); // Load environment variables from .env
+process.env.TUNNELMOLE_QUIET_MODE = 1; // disable tunnelmole dev logs
 
 // Map to store different states
 const stateMap = new Map();
@@ -62,15 +67,28 @@ mongoose
     process.exit();
   });
 
+const app = express();
+const httpServer = http.createServer(app);
 
-  const app = express();
-  const httpServer = http.createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+  },
+});
 
-  const io = new Server(httpServer, {
-    cors: {
-      origin: "*",
-    },
-  });
+// manual __dirname for ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// serve static files from React build
+app.use(express.static(path.join(__dirname, "../client/build")));
+app.use((req, res, next) => {
+  if (req.method === "GET" && !req.path.startsWith("/socket.io")) {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  } else {
+    next();
+  }
+});
 
 io.on("connection", (socket) => {
   console.log("Socket connected");
@@ -108,8 +126,6 @@ io.on("connection", (socket) => {
       console.log("❌ A user disconnected");
     });
   });
-
-
 
   // update confirmed sessions from FD to RC
   socket.on("updateSessions", async (sessions) => {
@@ -205,8 +221,12 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(4000, "0.0.0.0", () => {
+httpServer.listen(4000, () => {
   console.log("🚀 Server listening on port 4000");
 });
 
-//io.listen(4000);
+// tunnelmole
+const url = await tunnelmole({
+  port: 4000,
+});
+console.log("Your public url:\n", url);

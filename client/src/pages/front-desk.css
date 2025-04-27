@@ -7,7 +7,7 @@
 .frontdeskHeader {
   /* width: 490px;
   height: 20px; */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -25,7 +25,7 @@
 .racerpanel {
   /* width: 95vw;
   height: 50vh; */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -81,7 +81,7 @@
   min-height: 100px;
   width: fit-content;
   height: fit-content;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -108,7 +108,7 @@
 .drivers {
   min-width: 70px;
   min-height: 100px;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -149,7 +149,7 @@
   justify-content: flex-start;
   padding: 10px;
   overflow: hidden; /* Prevents content from spilling out */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -220,7 +220,7 @@
 .add-session-container {
   /* width: 490px;
   height: 20px; */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;

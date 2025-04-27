@@ -29,7 +29,7 @@
 .button {
   width: 130px;
   height: 6px;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgb(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -41,12 +41,14 @@
   display: flex;
   justify-content: center;
   text-decoration: none;
+  cursor: pointer;
+  transition-duration: 0.2s;
 }
 
 .bbutton {
   width: 180px;
   height: 12px;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0, 0.295);
   box-shadow: 0 0 20px rgba(0, 255, 255);
   border: solid 2px rgb(0, 255, 255);
   border-radius: 10px;
@@ -61,6 +63,11 @@
   text-decoration: none;
 }
 
+.button:hover {
+  background-color: rgb(0, 125, 125);
+}
+
 body {
-  background-color: rgb(0, 0, 0);
+  background: #030000;
+  background: radial-gradient(circle, rgba(3, 0, 0, 1) 0%, rgba(0, 166, 199, 1) 100%);
 }
