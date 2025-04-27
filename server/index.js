@@ -1,4 +1,6 @@
 import { Server } from "socket.io";
+import http from "http";
+import express from "express";
 import mongoose from "mongoose";
 import Sessions from "./model/Sessions.js"; // mongodb model for sessions
 import CurrentSession from "./model/CurrentSession.js"; // mongodb model for currentSession
@@ -60,11 +62,15 @@ mongoose
     process.exit();
   });
 
-const io = new Server({
-  cors: {
-    origin: "http://localhost:3000",
-  },
-});
+
+  const app = express();
+  const httpServer = http.createServer(app);
+
+  const io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+    },
+  });
 
 io.on("connection", (socket) => {
   console.log("Socket connected");
@@ -102,6 +108,8 @@ io.on("connection", (socket) => {
       console.log("❌ A user disconnected");
     });
   });
+
+
 
   // update confirmed sessions from FD to RC
   socket.on("updateSessions", async (sessions) => {
@@ -197,4 +205,8 @@ io.on("connection", (socket) => {
   });
 });
 
-io.listen(4000);
+httpServer.listen(4000, "0.0.0.0", () => {
+  console.log("🚀 Server listening on port 4000");
+});
+
+//io.listen(4000);
