@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import "./LeaderBoard.css";
 import { SocketContext } from "../context/SocketContext";
 import RaceTimer from "../components/RaceTimer";
+import { ReactComponent as FullScreenIcon } from "./../icons/fullscreen.svg";
+import { ReactComponent as ExitFullScreenIcon } from "./../icons/fullscreen-exit.svg";
 import { Link } from "react-router-dom";
 
 function LeaderBoard() {
   const [enableUpdateSession, setEnableUpdateSession] = useState(false);
   const [currentSession, setCurrentSession] = useState(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const socket = useContext(SocketContext);
 
   useEffect(() => {
@@ -53,6 +56,31 @@ function LeaderBoard() {
   useEffect(() => {
     console.log(enableUpdateSession);
   }, [enableUpdateSession]);
+  
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      if (!document.fullscreenElement) {
+        setIsFullScreen(false);
+      } else {
+        setIsFullScreen(true);
+      }
+    };
+
+    document.addEventListener("fullscreenchange", (e) => handleFullScreenChange());
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange());
+    };
+  }, []);
+
+  const toggleFullScreen = () => {
+    const elem = document.documentElement;
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
 
   return (
     <div className="lb-container">
@@ -118,6 +146,13 @@ function LeaderBoard() {
           </Link>
         </div>
       </div>
+      <button className="fullscreen-buttonrf" onClick={toggleFullScreen}>
+        {!isFullScreen ? (
+          <FullScreenIcon style={{ width: "30px", height: "30px" }} />
+        ) : (
+          <ExitFullScreenIcon style={{ width: "30px", height: "30px" }} />
+        )}
+      </button>  
     </div>
   );
 }

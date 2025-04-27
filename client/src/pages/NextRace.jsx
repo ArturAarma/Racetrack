@@ -2,12 +2,15 @@ import "./NextRace.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import { ReactComponent as FullScreenIcon } from "./../icons/fullscreen.svg";
+import { ReactComponent as ExitFullScreenIcon } from "./../icons/fullscreen-exit.svg";
 import { SocketContext } from "../context/SocketContext";
 
 function NextRace() {
   const socket = useContext(SocketContext);
 
   const [sessions, setSessions] = useState([]);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
@@ -49,6 +52,32 @@ function NextRace() {
     };
   }, [socket]);
 
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      if (!document.fullscreenElement) {
+        setIsFullScreen(false);
+      } else {
+        setIsFullScreen(true);
+      }
+    };
+
+    document.addEventListener("fullscreenchange", (e) => handleFullScreenChange());
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange());
+    };
+  }, []);
+
+  const toggleFullScreen = () => {
+    const elem = document.documentElement;
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+
   return (
     <div className="nr-container">
       Next Race
@@ -56,7 +85,7 @@ function NextRace() {
         <div className="nextsession">
           {sessions.length > 0 ? (
             <div className="sessiondetails">
-              <h2>Up next: {sessions[0].name}</h2>
+              <h2>Upcoming race: {sessions[0].name}</h2>
               {!currentSession?.isActive && !currentSession?.isFinished && (
                 <div className="paddock-alert">Proceed to the paddock</div>
               )}
@@ -79,6 +108,13 @@ function NextRace() {
           Back to the main page
         </Link>
       </div>
+      <button className="fullscreen-buttonrf" onClick={toggleFullScreen}>
+        {!isFullScreen ? (
+          <FullScreenIcon style={{ width: "30px", height: "30px" }} />
+        ) : (
+          <ExitFullScreenIcon style={{ width: "30px", height: "30px" }} />
+        )}
+      </button>  
     </div>
   );
 }
