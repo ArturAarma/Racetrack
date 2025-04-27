@@ -13,42 +13,6 @@ Built with **React**, **Node.js**, **Socket.IO**, and **MongoDB**, it enables fa
 
 ---
 
-## 🚀 Quick Start
-
-```bash
-git clone https://github.com/2Smoothman/racetrack.git
-cd racetrack
-```
-
-**Frontend:**
-
-```bash
-cd client
-npm install
-npm run build
-```
-
-**Backend:**
-
-```bash
-cd ../server
-npm install
-```
-
-**Environment Variables:**  
-Create a `.env` file inside `server/`.
-
-**Start the server:**
-
-```bash
-npm start        # Production Mode (10-minute timer)
-npm run dev      # Development Mode (1-minute timer)
-```
-
-Tunnelmole will generate a **public URL** you can use to access the app from other devices.
-
----
-
 ## 📋 Interfaces
 
 ### 🧾 Front Desk
@@ -89,14 +53,29 @@ Tunnelmole will generate a **public URL** you can use to access the app from oth
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Setup
 
-| Tech      | Role                    |
-| --------- | ----------------------- |
-| React     | Frontend                |
-| Node.js   | Backend                 |
-| Socket.IO | Real-time communication |
-| MongoDB   | Persistent data storage |
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/2Smoothman/racetrack.git
+cd racetrack
+```
+
+### 2. Frontend Setup
+
+```bash
+cd client
+npm install
+npm run build
+```
+
+### 3. Backend Setup
+
+```bash
+cd ../server
+npm install
+```
 
 ---
 
@@ -119,7 +98,7 @@ LAPLINE_PW=your-lapline-password
 ```
 
 > ⚠️ **Important:**  
-> All three passwords must be defined (`FRONTDESK_PW`, `RACECONTROL_PW`, `LAPLINE_PW`) — otherwise the server will not start.
+> All four environment variables must be defined (`MONGO_URI`, `FRONTDESK_PW`, `RACECONTROL_PW`, `LAPLINE_PW`) — otherwise the server will not start.
 
 ---
 
@@ -134,13 +113,12 @@ LAPLINE_PW=your-lapline-password
 4. Allow external access:
    - Go to **Network Access** → **Add IP Address** → **Allow Access from Anywhere** (`0.0.0.0/0`).
 5. Get your connection string:
-
    - Go to your cluster → **Connect** → **Connect your application**.
    - Copy the connection string, e.g.:
 
-     ```bash
-     mongodb+srv://racetrack:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-     ```
+```bash
+mongodb+srv://racetrack:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+```
 
 6. Replace `<password>` with your password and use this URL in your `.env` file as `MONGO_URI`.
 
@@ -148,9 +126,23 @@ LAPLINE_PW=your-lapline-password
 
 ---
 
-## 🌐 Accessing the App from Other Devices
+## ▶️ Starting the Server
 
-After starting the server, a **Tunnelmole public URL** will be displayed in your terminal.  
+From the `server/` folder:
+
+- **Production Mode** (10-minute race timer):
+
+  ```bash
+  npm start
+  ```
+
+- **Development Mode** (1-minute race timer):
+
+  ```bash
+  npm run dev
+  ```
+
+After starting the server, a **Tunnelmole public URL** will be displayed in your terminal:  
 Example:
 
 ```
@@ -158,7 +150,18 @@ Server started on http://localhost:4000
 Tunnelmole public URL: https://your-sample-url.tunnelmole.net
 ```
 
-- Use this URL to access the Racetrack app from any device connected to the internet!
+- Use this public URL to access the Racetrack app from any device!
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech      | Role                    |
+| --------- | ----------------------- |
+| React     | Frontend                |
+| Node.js   | Backend                 |
+| Socket.IO | Real-time communication |
+| MongoDB   | Persistent data storage |
 
 ---
 
