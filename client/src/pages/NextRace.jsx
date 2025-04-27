@@ -64,7 +64,7 @@ function NextRace() {
                 {sessions &&
                   sessions[0].drivers.map((driver, index) => (
                     <div className="nr-driver" key={index}>
-                      Car {index + 1}: {driver.name}
+                      Car {driver.car}: {driver.name}
                     </div>
                   ))}
                 <div></div>
