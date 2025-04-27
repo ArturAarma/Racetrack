@@ -37,6 +37,7 @@ function LapLineTrackerLogin() {
         socket.on("loginResult", (role) => {
             if (role === "lapline") {
                 navigate("/lap-line-tracker");
+                window.location.reload();
             } else {
                 alert("Invalid password");
             }
