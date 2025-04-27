@@ -58,6 +58,7 @@ cd racetrack
 ```bash
 cd server
 npm install
+npm install cross-env
 ```
 
 #### Frontend
@@ -113,6 +114,13 @@ npm start
 ```bash
 cd ../client
 npm start
+```
+
+### Access the program on other devices
+
+```bash
+npm install -g tunnelmole
+tmole 3000
 ```
 
 By default, the frontend runs on `http://localhost:3000` and the backend on `http://localhost:4000`.
