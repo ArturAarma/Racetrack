@@ -1,11 +1,10 @@
 import "./Mainpage.css";
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { Link } from "react-router-dom";
 
 const Mainpage = () => {
   return (
-    <div>
+    <div className="main-container">
       <div id="hpdiv">
         <div id="wtext">Welcome to the racetrack</div>
       </div>

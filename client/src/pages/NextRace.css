@@ -37,7 +37,7 @@
   justify-content: flex-start;
   height: auto;
   /* max-height: 60vh; */
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(33, 75, 104, 0.195);
   /* box-shadow: 0 0 20px rgba(255, 100, 185, 0.7); */
   /* border: solid 2px rgb(255, 158, 255, 0.5); */
   border: solid 2px black;
@@ -95,4 +95,31 @@
 
 .next-race-container .bbutton:hover {
   background-color: rgb(8, 63, 82);
+}
+
+@media (max-width: 768px) {
+  .nr-container {
+    width: 95vw;
+    margin: 10px auto;
+  }
+
+  .next-race-drivers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nr-driver {
+    font-size: 20px;
+  }
+
+  .paddock-alert {
+    font-size: 20px;
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px 20px;
+  }
+
+  .next-race-container .bbutton {
+    font-size: 18px;
+    width: 90%;
+  }
 }

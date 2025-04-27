@@ -45,18 +45,6 @@ function RaceControl() {
     };
   }, [socket]);
 
-  // get first session object with isConfirmed = true (front-desk has confirmed driver names)
-  //   useEffect(() => {
-  //     if (!socket) return;
-  //     const firstConfirmedSession = sessions?.find((session) => session.isConfirmed === true);
-  //     // if there is an ongoing active session, don't update currentSession
-  //     if (!currentSession?.isActive && !currentSession?.isFinished) {
-  //       socket.emit("updateCurrentSession", firstConfirmedSession);
-  //       setCurrentSession(firstConfirmedSession);
-  //     }
-  //   }, [socket, sessions, currentSession]);
-  //   console.log(currentSession);
-
   return (
     <div className="session-container">
       Race Control
@@ -178,15 +166,6 @@ function SessionInfo({ sessions, setSessions, currentSession, setCurrentSession,
     socket.emit("endSession");
     socket.emit("updateCurrentSession");
     socket.emit("requestConfirmedCurrentSession");
-    // when both isFinished and isActive are set to false, then useEffect sets
-    // the next session from sessions array as currentSession
-    // setCurrentSession((prevCurrentSession) => {
-    //   const updatedCurrentSession = {
-    //     ...prevCurrentSession,
-    //     isFinished: false,
-    //   };
-    //   return updatedCurrentSession;
-    // });
   };
 
   return (

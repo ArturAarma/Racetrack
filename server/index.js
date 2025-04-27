@@ -9,8 +9,8 @@ import mongoose from "mongoose";
 import Sessions from "./model/Sessions.js"; // mongodb model for sessions
 import CurrentSession from "./model/CurrentSession.js"; // mongodb model for currentSession
 import EnableUpdateSession from "./model/EnableUpdateSession.js"; // mongodb model for enableUpdateSession
-import dotenv from "dotenv"; // Import dotenv using ES module syntax
-dotenv.config(); // Load environment variables from .env
+import dotenv from "dotenv";
+dotenv.config(); // load environment variables from .env
 process.env.TUNNELMOLE_QUIET_MODE = 1; // disable tunnelmole dev logs
 
 // Map to store different states
