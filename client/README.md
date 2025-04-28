@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Use this guide only if you want to see guidelines on how to use yarn, otherwise read the README in project root!
+
 ## Available Scripts
 
 In the project directory, you can run:
