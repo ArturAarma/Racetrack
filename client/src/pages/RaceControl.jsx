@@ -1,6 +1,6 @@
 import "./RaceControl.css";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
 import RaceTimer from "../components/RaceTimer";
 
@@ -9,6 +9,15 @@ function RaceControl() {
   const socket = useContext(SocketContext);
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
+  const navigate = useNavigate();
+
+  // check authentification, navigate to login if not authorized
+  useEffect(() => {
+    const auth = sessionStorage.getItem("auth-rc");
+    if (auth !== "racecontrol") {
+      navigate("/race-control-login");
+    }
+  }, []);
 
   useEffect(() => {
     if (!socket) return;

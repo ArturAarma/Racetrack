@@ -1,11 +1,20 @@
 import "./LapLineTracker.css";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
 
 function LapLineTracker() {
   const socket = useContext(SocketContext);
   const [currentSession, setCurrentSession] = useState(null);
+  const navigate = useNavigate();
+
+  // check authentification, navigate to login if not authorized
+  useEffect(() => {
+    const auth = sessionStorage.getItem("auth-ll");
+    if (auth !== "lapline") {
+      navigate("/lap-line-tracker-login");
+    }
+  }, []);
 
   useEffect(() => {
     if (!socket) return;
