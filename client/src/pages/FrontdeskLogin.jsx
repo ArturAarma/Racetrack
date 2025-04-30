@@ -1,8 +1,6 @@
 import "./FrontdeskLogin.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ReactDOM from "react-dom/client";
-import FrontDesk from "./front-desk";
 import { useContext } from "react";
 import { SocketContext } from "../context/SocketContext";
 import { useEffect } from "react";
@@ -12,7 +10,6 @@ function FrontDeskLogin() {
   const navigate = useNavigate();
   const socket = useContext(SocketContext);
   const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useState(null);
   const [isChecking, setChecking] = useState(false);
 
   const loginClick = (event) => {
