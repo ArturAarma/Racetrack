@@ -177,8 +177,11 @@ io.on("connection", (socket) => {
   // update currentSession from RC to LLT and LB
   socket.on("updateCurrentSession", async (currentSession) => {
     stateMap.set("currentSession", currentSession);
+
+    const sessionToSave = { ...currentSession };
+    delete sessionToSave._id;
     // update mongodb
-    await CurrentSession.findOneAndReplace({}, currentSession, { upsert: true }); //mongodb
+    await CurrentSession.findOneAndReplace({}, sessionToSave, { upsert: true }); //mongodb
     io.emit("currentSessionUpdated", stateMap.get("currentSession"));
   });
 
@@ -208,7 +211,11 @@ io.on("connection", (socket) => {
   // Update RaceControl and LeaderBoard when LapLineTracker adds a lap
   socket.on("lapAdded", async (currentSession) => {
     stateMap.set("currentSession", currentSession);
-    await CurrentSession.findOneAndReplace({}, currentSession, { upsert: true }); //mongodb
+
+    const sessionToSave = { ...currentSession };
+    delete sessionToSave._id;
+
+    await CurrentSession.findOneAndReplace({}, sessionToSave, { upsert: true }); //mongodb
     io.emit("addedLap", stateMap.get("currentSession"));
   });
 
