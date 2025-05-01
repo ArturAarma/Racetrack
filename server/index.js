@@ -102,8 +102,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("checkPassword", (password) => {
-    console.log(password);
-
     let passwords = {
       frontDesk: process.env.FRONTDESK_PW,
       racecontrol: process.env.RACECONTROL_PW,

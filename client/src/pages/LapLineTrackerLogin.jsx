@@ -13,10 +13,12 @@ function LapLineTrackerLogin() {
   const socket = useContext(SocketContext);
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
+  const [error, setError] = useState("");
 
   const loginClick = (event) => {
     event.preventDefault();
     if (socket) {
+      setError("");
       socket.emit("checkPassword", password);
     }
   };
@@ -30,7 +32,7 @@ function LapLineTrackerLogin() {
         navigate("/lap-line-tracker");
         window.location.reload();
       } else {
-        alert("Invalid password");
+        setError("Invalid password");
       }
     });
 
@@ -46,7 +48,7 @@ function LapLineTrackerLogin() {
           <div>
             <div className="login">
               <input
-                type="text"
+                type="password"
                 placeholder="password"
                 id="loginInput"
                 defaultValue={""}
@@ -54,6 +56,7 @@ function LapLineTrackerLogin() {
               />
               <button type="submit">Login</button>
             </div>
+            {error && <div className="error-message">{error}</div>}
             <div>
               <Link to="/" className="bbutton">
                 Back to the main page

@@ -11,11 +11,13 @@ function FrontDeskLogin() {
   const socket = useContext(SocketContext);
   const [password, setPassword] = useState("");
   const [isChecking, setChecking] = useState(false);
+  const [error, setError] = useState("");
 
   const loginClick = (event) => {
     event.preventDefault();
     if (socket && !isChecking) {
       setChecking(true);
+      setError("");
       socket.emit("checkPassword", password);
     }
   };
@@ -30,7 +32,7 @@ function FrontDeskLogin() {
         navigate("/front-desk");
         window.location.reload();
       } else {
-        alert("Invalid password");
+        setError("Invalid password");
       }
     });
 
@@ -44,7 +46,7 @@ function FrontDeskLogin() {
       <form onSubmit={loginClick}>
         <div className="login">
           <input
-            type="text"
+            type="password"
             placeholder="password"
             id="loginInput"
             value={password}
@@ -54,6 +56,7 @@ function FrontDeskLogin() {
             {isChecking ? "Checking..." : "Login"}
           </button>
         </div>
+        {error && <div className="error-message">{error}</div>}
         <div>
           <Link to="/" className="bbutton">
             Back to the main page
