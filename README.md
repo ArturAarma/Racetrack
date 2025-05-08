@@ -53,6 +53,12 @@ Built with **React**, **Node.js**, **Socket.IO**, and **MongoDB**, it enables fa
 
 ---
 
+## Video showcase
+
+https://youtu.be/cva9bZWiN_c
+
+---
+
 ## 🛠️ Setup
 
 ### 1. Clone the repository
